@@ -1,23 +1,69 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "matriks.h"
+#include "../adt/boolean.h"
+#include "../adt/point.h"
+// #include "adt/graph.h"
 
-typedef struct Map
+#define BrsMin 1
+#define BrsMax 10
+#define KolMin 1
+#define KolMax 10
+#define Nil "0"
+
+typedef struct
 {
-    
-};
+    char Mem[BrsMin + 1][KolMin + 1]; /* Info elemen Map[i][j] */
+    int NBrs; /* Banyaknya baris */
+    int NKol; /* Banyaknya kolom */
+    int PlayerX; /* Posisi Player dalam koordinat X */
+    int PlayerY; /* Posisi Player dalam koordinat Y */
+    // Graph Left; 
+    // Graph Right;
+} Map;
 
+/********** SELEKTOR **********/
+#define NBrs(M) (M).NBrs
+#define NKol(M) (M).NKol
+#define Info(M,i,j) (M).Mem[(i)][(j)]
+#define PlayerX(M) (M).PlayerX
+#define PlayerY(M) (M).PlayerY
+//#define Left(M) (M).Left
+//#define Right(M) (M).Right
+
+/********** KONSTRUKTOR **********/
 void CreateMap(int NB, int NK, Map *M);
 /* I.S. NB dan NK terdefinisi dan bernilai valid (NB & NK > 0) */
 /* F.S. Terbentuk Map M dengan panjang baris NB dan panjang kolom NK */
 
-void InitMap(Map *M);
+void InitMap(Map *M, char filename[]);
 /* I.S. Map M kosong dan diisi */
 /* F.S. Map terinisialisasi */
 
+/********** OPERASI **********/
 void PrintMap(Map M);
 /* I.S. M terdefinisi */
 /* F.S. M ditampilkan pada layar */
+
+void PrintLegend();
+/* Menampilkan Legenda Peta */
+
+boolean IsBorder(Map M, int i, int j);
+/* I.S. Matriks Terdefinisi */
+/* F.S. Mengembalikan True jika Info[(i)][(j)] adalah border, border adalah bagian ujung (NBMin, NBMax, NKMin, NKMax) yang bukan gerbang */
+
+boolean IsGerbang(Map M, int i, int j);
+/* I.S. Matriks Terdefinisi */
+/* F.S. Mengembalikan True jika Info[(i)][(j)] adalah gerbang */
+
+boolean AvailInteraction(Map M, int i, int j);
+/* I.S. baris dan kolom terdefinisi */
+/* F.S. jika berada 1 petak di atas / bawah / kiri / kanan bangunan maka dapat berinteraksi */
+
+void Move(Map *M, char move);
+/* I.S. Matriks terdefinisi & tidak kosong */
+/* F.S. Player bergerak berdasarkan input, 
+jika menabrak pagar Player tetap pada posisi awal, 
+jika berada di atas office maka dapat berinteraksi dengan office */
 
 #endif
