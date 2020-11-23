@@ -5,24 +5,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int char_to_int(char c);
 
 /********** KONSTRUKTOR **********/
 void CreateMap(int NB, int NK, Map *M)
 /* I.S. NB dan NK terdefinisi dan bernilai valid (NB & NK > 0) */
 /* F.S. Terbentuk Map M dengan panjang baris NB dan panjang kolom NK */
 {
+    
     NBrs(*M) = NB;
     NKol(*M) = NK;
-    for (int i = BrsMin; i < BrsMax; i++)
+    int i,j;
+    for (i = BrsMin; i < NB; i++)
     {
-        for (int j = KolMin; j < KolMax; j++)
+        for (j = KolMin; j < NK; j++)
         {
-            Info(*M, i, j) = Nil; /* Elemen diisi "0" */
+            Info(*M,i,j) = Nil;
         }
     }
-    PlayerX(*M) = 0;
-    PlayerY(*M) = 0;
+    PlayerX(*M) = Nil;
+    PlayerY(*M) = Nil;
 }
 
 void InitMap(Map *M, char filename[])
@@ -30,11 +31,16 @@ void InitMap(Map *M, char filename[])
 /* F.S. Map terinisialisasi */
 {
     /* Mengisi map berdasakan file txt */
+    /* SEMENTARA */
+    Info(*M,1,1) = 65;
+    Info(*M,5,9) = 62;
+    Info(*M,9,5) = 118;
+    Info(*M,5,5) = 80;
 
     /* Mengisi bagian yang masih kosong atau belum termasuk dalam konfigurasi awal */
-    for (int i = 1; i < 10; i++)
+    for (int i = BrsMin; i < BrsMax; i++)
     {
-        for (int j = 1; j < 10; j++)
+        for (int j = KolMin; j < KolMax; j++)
         {
             if (Info(*M, i, j) == Nil)
             {
@@ -60,11 +66,11 @@ void PrintMap(Map M)
     {
         for (int j = KolMin; j < KolMax; j++)
         {
-            printf("%s", &Info(M, i, j));
-        }
-        if (i != NBrs(M))
-        {
-            printf("\n");
+            printf("%c", Info(M, i, j));
+            if (j == KolMax-1)
+            {
+                printf("\n");
+            }
         }
     }
     PrintLegend();
@@ -85,7 +91,7 @@ boolean IsBorder(Map M, int i, int j)
 /* I.S. Matriks Terdefinisi */
 /* F.S. Mengembalikan True jika Info[(i)][(j)] adalah border, border adalah bagian ujung (NBMin, NBMax, NKMin, NKMax) yang bukan gerbang */
 {
-  return ((i == BrsMin) || (i == BrsMax) || (i == KolMin) || (i == KolMax)) && !IsGerbang(M,i,j);
+  return ((i == BrsMin) || (i == BrsMax-1) || (j == KolMin) || (j == KolMax-1)) && !IsGerbang(M,i,j);
 }
 
 boolean IsGerbang(Map M, int i, int j)

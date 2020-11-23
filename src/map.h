@@ -2,18 +2,17 @@
 #define MAP_H
 
 #include "../adt/boolean.h"
-#include "../adt/point.h"
 // #include "adt/graph.h"
 
-#define BrsMin 1
+#define BrsMin 0
 #define BrsMax 10
-#define KolMin 1
+#define KolMin 0
 #define KolMax 10
-#define Nil "0"
+#define Nil -1
 
 typedef struct
 {
-    char Mem[BrsMin + 1][KolMin + 1]; /* Info elemen Map[i][j] */
+    char Mem[BrsMax + 1][KolMax + 1]; /* Info elemen Map[i][j] */
     int NBrs; /* Banyaknya baris */
     int NKol; /* Banyaknya kolom */
     int PlayerX; /* Posisi Player dalam koordinat X */
