@@ -1,0 +1,5 @@
+Sand 25
+Wood 50
+Stone 75
+Copper 100
+Steel 150
