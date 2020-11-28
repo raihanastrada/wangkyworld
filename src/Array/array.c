@@ -37,11 +37,16 @@ void InitList1(List *L)
         }
 }
 
-void InitList2(List *L)
+void InitList2(List *L, char *filename)
 /* I.S. List L kosong */
 /* F.S. List L diisi data dari file eksternal (.txt) */
 {
-        STARTKATA2("materials.txt");
+        if (EndKata)
+        {
+                EndKata = false;
+        }
+        
+        STARTKATA2(filename);
         int i = 0;
         while (!EndKata && i<=IdxMax)
         {

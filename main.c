@@ -3,20 +3,25 @@
 #include "./src/map.h"
 #include "./src/Array/array.h"
 #include "./src/MesinKata/mesinkata.h"
+#include "./src/Jam/jam.h"
 #include <stdio.h>
 
-void info(char *nama, int uang, int time_curr, int time_open, int time_remain, int s_aksi, int s_waktu, int s_uang)
+
+void info(char *nama, int uang, JAM time_curr, JAM time_goal, JAM time_remain, int s_aksi, int s_waktu, int s_uang)
 {
     printf("Nama: ");
     printf("%s\n", nama);
     printf("Money: ");
     printf("%d\n", uang);
     printf("Current Time: ");
-    printf("%d\n", time_curr);
+    TulisJAM(time_curr);
+    printf("\n");
     printf("Opening Time: ");
-    printf("%d\n", time_open);
+    TulisJAM(time_goal);
+    printf("\n");
     printf("Time remaining: ");
-    printf("%d\n", time_remain);
+    TulisDurasi(time_remain);
+    printf("\n");
     printf("Total aksi yang akan dilakukan: ");
     printf("%d\n", s_aksi);
     printf("Total waktu yang dibutuhkan: ");
@@ -45,93 +50,168 @@ int main()
     if (running)
     {   
         /* Info */
+        /* Nama */
         char nama[20]; 
         printf("Memulai permainan baru...\n");
         printf("Masukkan nama: \n");
         SCANKATA();
-
         strcpy(nama, CKata.TabKata);
-        int uang = 1000;
-        int time_curr = 2100;
-        int time_open = 1900;
-        int time_remain = 12;
+        
+        /* Inisiasi Uang */
+        int uang = 1000;        
+        
+        /* Inisiasi Jam */
+        JAM time_open = MakeJAM(9,0,0);
+        JAM time_close = MakeJAM(21,0,0);
+        JAM time_curr = time_close;
+        JAM time_goal = time_open;
+        JAM time_remain;
+        
+        /* Inisialisasi Stack */
         int s_aksi = 0;
         int s_waktu = 0; 
         int s_uang = 0;
 
-        /* Inisialisasi Game */
+        /* Inisialisasi Konfigurasi Game */
         Map M1; //Map M1,M2,M3,M4
         CreateMap(10, 10, &M1);
         InitMap(&M1, "map1.txt");
         
-        List LM; // List Material
+        // List Material
+        List LM; 
         CreateList(&LM);
-        InitList2(&LM);
+        InitList2(&LM,"materials.txt");
 
+        // List Command
+        List LC;
+        CreateList(&LC);
+        InitList2(&LC,"commands.txt");
+        int idx;
+
+        // List Wahana
+        int day = 1;
+        boolean main;
         while (running)
         {
+            printf("\n");
+            main = JinRange(time_open, time_close, time_curr); // Menghasilkan true jika current time berada diantaro time opening dan closing
+            if (!main) // Jika preparation phase
+            {
+                printf("Preparation ");
+                time_goal = time_open;
+            }
+            else
+            {
+                printf("Main ");
+                time_goal = time_close;
+            }
+            printf("phase day %d\n",day);
+            time_remain = Durasi(time_curr,time_goal);
+            
             PrintMap(M1);
-            info(nama, uang, time_curr, time_open, time_remain, s_aksi, s_waktu, s_uang);
+            info(nama, uang, time_curr, time_goal, time_remain, s_aksi, s_waktu, s_uang);
+            printf("\n");
             printf("Masukkan Perintah:\n");
             SCANKATA();
 
-            /* Bergerak (w,a,s,d) di Command Game */
-            /* code */
-
-            /* 'Build' di Command Game */
-            /* code */
-
-            /* 'Upgrade' di Command Game */
-            /* code */
-
-            /* 'Buy' di Command Game */
-            if (strcmp(CKata.TabKata,"buy") == 0)
+            /* Pengecekan Command Valid */
+            idx = SearchList1(LC, CKata.TabKata);
+            if (idx == IdxUndef) // Jika tidak terdapat pada list command
             {
-                // KAMUS
-                char barang[20];
-                int jumlah;
-
-                PrintListM(LM);
-                
-                SCANKATA();
-                jumlah = toInt(CKata.TabKata);
-                ADVKATA();
-                strcpy(barang, CKata.TabKata);
-                Buy(LM,barang,jumlah,&uang);
+                printf("Command yang anda masukkan tidak valid\n");
             }
-
-            /* 'Undo' di Command Game */
-            /* code */
-
-            /* 'Execute' di Command Game */
-            /* code */
-
-            /* 'Main' di Command Game */
-            /* code */
-
-            /* 'Serve' di Command Game */
-            /* code */
-
-            /* 'Repair' di Command Game */
-            /* code */
-
-            /* 'Detail' di Command Game */
-            /* code */
-
-            /* 'Office' di Command Game */
-            /* code */
-
-            /* 'Prepare' di Command Game */
-            /* code */
-
-            /* Exit di Command Game */
-            if (strcmp(CKata.TabKata,"exit") == 0)
+            else
             {
-                running = false;
-                printf(" ________________________ \n");
-                printf("| Thanks for playing !!! |\n");
-                printf("|________________________|\n");
-                return 0;
+                /* Bergerak (w,a,s,d) di Command Game */
+                /* code */
+
+                /* 'Build' di Command Game */
+                if (idx == 4)
+                {
+                    /* code */
+                }
+
+                /* 'Upgrade' di Command Game */
+                if (idx == 5)
+                {
+                    /* code */
+                }
+
+                /* 'Buy' di Command Game */
+                if (idx == 6)
+                {
+                    // KAMUS
+                    char barang[20];
+                    int jumlah;
+
+                    PrintListM(LM);
+
+                    SCANKATA();
+                    jumlah = toInt(CKata.TabKata);
+                    ADVKATA();
+                    strcpy(barang, CKata.TabKata);
+                    Buy(LM,barang,jumlah,&uang);
+                }
+
+                /* 'Undo' di Command Game */
+                if (idx == 7)
+                {
+                    /* code */
+                }
+                
+                /* 'Execute' di Command Game */
+                if (idx == 8)
+                {
+                    /* code */
+                }
+                
+                /* 'Main' di Command Game */
+                if (idx == 9)
+                {
+                    /* code */
+                }
+                
+                /* 'Serve' di Command Game */
+                if (idx == 10)
+                {
+                    /* code */
+                }
+                
+
+                /* 'Repair' di Command Game */
+                if (idx == 11)
+                {
+                    /* code */
+                }
+                
+
+                /* 'Detail' di Command Game */
+                if (idx == 12)
+                {
+                    /* code */
+                }
+                
+                /* 'Office' di Command Game */
+                if (idx == 13)
+                {
+                    /* code */
+                }
+
+                /* 'Prepare' di Command Game */
+                if (idx == 14)
+                {
+                    /* code */
+                }
+
+                /* Exit di Command Game */
+                if (idx == 15)
+                {
+                    running = false;
+                    printf(" ________________________ \n");
+                    printf("| Thanks for playing !!! |\n");
+                    printf("|________________________|\n");
+                    return 0;
+                }
             }
         }
     }

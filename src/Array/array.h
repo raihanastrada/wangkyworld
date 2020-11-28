@@ -6,7 +6,7 @@
 
 #include "boolean.h"
 
-#define IdxMax 9 /* Indeks maksimum array */
+#define IdxMax 19 /* Indeks maksimum array */
 #define IdxMin 0 /* Indeks minimum array */
 #define IdxUndef -999 /* Indeks tak terdefinisi*/
 #define ValUndef -1 /* Nilai tidak terdefinisi (Harga Barang/Durasi) */
@@ -32,7 +32,7 @@ void InitList1(List *L);
 /* I.S. List L kosong */
 /* F.S. List L diisi data dari input */
 
-void InitList2(List *L);
+void InitList2(List *L, char *filename);
 /* I.S. List L kosong */
 /* F.S. List L diisi data dari file eksternal (.txt) */
 

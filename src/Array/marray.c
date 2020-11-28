@@ -6,7 +6,7 @@ int main()
 {
     List L;
     CreateList(&L);
-    InitList2(&L); //Membaca file eksternal material.txt
+    InitList2(&L,"materials.txt"); //Membaca file eksternal materials.txt
     printf("Menampilkan list barang\n");
     PrintListM(L);
 
