@@ -7,6 +7,7 @@
 #include "../map.h"
 #include "stackWMap.h"
 #include "arrayWahana.h"
+#include "arrayWMap.h"
 
 void CreateWMEmpty (StackWMap *WMap)
 /* I.S. sembarang; */
@@ -29,7 +30,7 @@ boolean IsWMFull (StackWMap WMap)
     return (TopWMap(WMap) == MaxElWM);
 }
 
-boolean IsPosTaken (StackWMap WBuild, StackWMap WMap, int IDWahana, POINT Pos, int NMap, ListW L)
+boolean IsPosTaken (StackWMap WBuild, ListWMap WMap, int IDWahana, POINT Pos, int NMap, ListW L)
 /* Mengirim true jika terdapat building lain pada lokasi Pos pada peta ke-NMap */
 {
     int i;
@@ -39,6 +40,7 @@ boolean IsPosTaken (StackWMap WBuild, StackWMap WMap, int IDWahana, POINT Pos, i
     POINT Pos1;
     int N1;
     WMapItem WBuildItem;
+    WMapItemCopy WBuildItemCopy;
     for (i = TopWMap(WBuild); i >= 0; i--) {
         WBuildItem = WBuild.T[i];
         Pos1 = Loc(WBuildItem);
@@ -51,13 +53,13 @@ boolean IsPosTaken (StackWMap WBuild, StackWMap WMap, int IDWahana, POINT Pos, i
             }
         }
     }
-    for (i = 0; i < 5; i++) {
-        WBuildItem = WMap.T[i];
-        Pos1 = Loc(WBuildItem);
-        N1 = Quadrant(WBuildItem);
+    for (i = 0; i < LenWM(WMap); i++) {
+        WBuildItemCopy = WMItem(WMap, i);
+        Pos1 = Loc(WBuildItemCopy);
+        N1 = Quadrant(WBuildItemCopy);
         if (EQ(Pos1, Pos) && N1 == NMap) {
             lvlA = SearchListWLvl(L, IDWahana);
-            lvlB = SearchListWLvl(L, IDW(WBuildItem));
+            lvlB = SearchListWLvl(L, IDW(WBuildItemCopy));
             if (lvlA <= lvlB) {
                 return false;
             }

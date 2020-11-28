@@ -9,6 +9,7 @@
 #include "../map.h"
 #include "stackWMap.h"
 #include "arrayWahana.h"
+#include "arrayWMap.h"
 
 #define NilWM -1
 #define MaxElWM 100
@@ -43,7 +44,7 @@ boolean IsWMEmpty (StackWMap WMap);
 /* Mengirim true jika StackWMap kosong: lihat definisi di atas */
 boolean IsWMFull (StackWMap WMap);
 /* Mengirim true jika tabel penampung nilai elemen StackWMap penuh */
-boolean IsPosTaken (StackWMap WBuild, StackWMap WMap, int IDWahana, POINT Pos, int NMap, ListW L);
+boolean IsPosTaken (StackWMap WBuild, ListWMap WMap, int IDWahana, POINT Pos, int NMap, ListW L);
 /* Mengirim true jika terdapat building lain pada lokasi Pos pada peta ke-NMap */
 
 /* ************ Menambahkan sebuah elemen ke StackWMap ************ */
