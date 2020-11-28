@@ -35,7 +35,9 @@ void InitMap(Map *M, char filename[])
     Info(*M,1,1) = 65;
     Info(*M,5,9) = 62;
     Info(*M,9,5) = 118;
-    Info(*M,5,5) = 80;
+    PlayerX(*M) = 5;
+    PlayerY(*M) = 5;
+    /*Info(*M,5,5) = 80;*/
 
     /* Mengisi bagian yang masih kosong atau belum termasuk dalam konfigurasi awal */
     for (int i = BrsMin; i < BrsMax; i++)
@@ -66,7 +68,11 @@ void PrintMap(Map M)
     {
         for (int j = KolMin; j < KolMax; j++)
         {
-            printf("%c", Info(M, i, j));
+            if (i == PlayerY(M) && j == PlayerX(M)) {
+                printf("P");
+            } else {
+                printf("%c", Info(M, i, j));
+            }
             if (j == KolMax-1)
             {
                 printf("\n");
@@ -75,6 +81,48 @@ void PrintMap(Map M)
     }
     PrintLegend();
 }
+
+/*void PrintPreviewMap(Map M, ListWMap WMap)
+Menampilkan peta pada kondisi preparation phase
+{
+    Building B;
+    for (int i = BrsMin; i < BrsMax; i++)
+    {
+        for (int j = KolMin; j < KolMax; j++)
+        {
+            B = SearchWMap(WMap, i, j)
+            if (B != NilB && Info(M, i, j) != 'P')
+            {
+                printf("%c", BType(B));
+            } else
+            {
+                printf("%c", Info(M, i, j));
+            }
+            if (j == KolMax-1)
+            {
+                printf("\n");
+            }
+        }
+    }
+    PrintLegend();
+}
+
+void MergeMap(Map *M, ListWMap WMap)
+finalisasi perubahan pada Map pada preparation phase
+{
+    Building B;
+    for (int i = BrsMin; i < BrsMax; i++)
+    {
+        for (int j = KolMin; j < KolMax; j++)
+        {
+            B = SearchWMap(WMap, i, j)
+            if (B != NilB)
+            {
+                Info(*M, i, j) = BType(B);
+            }
+        }
+    }
+}*/
 
 void PrintLegend()
 /* Menampilkan Legenda Peta */

@@ -2,9 +2,11 @@
 
 #include "./src/map.h"
 #include "./src/Array/array.h"
+#include "./src/Array/arrayWahana.h"
 #include "./src/MesinKata/mesinkata.h"
 #include "./src/Antrian/antrian.h"
 #include "./src/Antrian/listlinier.h"
+/*#include "./src/Execute/cmdstack.h"*/
 #include "./src/Jam/jam.h"
 #include <stdio.h>
 
@@ -73,6 +75,7 @@ int main()
         int s_aksi = 0;
         int s_waktu = 0; 
         int s_uang = 0;
+        /* CmdStack s_commands = 0; */
 
         /* Inisialisasi Konfigurasi Game */
         Map M1; //Map M1,M2,M3,M4
@@ -91,9 +94,9 @@ int main()
         int idx;
 
         // List Wahana
-        List LW;
-        CreateList(&LW);
-        InitList3(&LW, "./src/Array/wahana.txt");
+        ListW LW;
+        CreateListW(&LW);
+        InitListW(&LW, "./src/Array/wahana.txt");
 
         // List Wahana Pemain
         ListLin WahanaP;
@@ -130,7 +133,6 @@ int main()
 
             /* Pengecekan Command Valid */
             idx = SearchList1(LC, CKata.TabKata);
-            printf("YOU TYPED: %s\n", CKata.TabKata);
             if (idx == IdxUndef) // Jika tidak terdapat pada list command
             {
                 printf("Command yang anda masukkan tidak valid\n");

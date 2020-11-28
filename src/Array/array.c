@@ -60,26 +60,6 @@ void InitList2(List *L, char *filename)
         EndKata = false;
 }
 
-void InitList3(List *L, char *filename)
-/* I.S. List L kosong */
-/* F.S. List L diisi data dari file eksternal (.txt) */
-{
-        STARTKATA2(filename);
-        int i = 0;
-        while (!EndKata && i<=IdxMax)
-        {
-            strcpy(Key(*L,i), CKata.TabKata);
-            ADVKATA();
-            strcat(Key(*L,i), " ");
-            strcat(Key(*L,i), CKata.TabKata);
-            ADVKATA();
-            Value(*L,i) = toInt(CKata.TabKata);
-            ADVKATA();
-            i++;
-        }
-        EndKata = false;
-}
-
 void PrintListM(List L)
 /* I.S. List L tidak kosong */
 /* F.S. Menampilkan List yang ada, untuk menampilkan list pada buy */
@@ -94,22 +74,6 @@ void PrintListM(List L)
                 printf("%s\n", Key(L,i)); // Menampilkan nama barang
                 i++;
 	}
-}
-
-void PrintListW(List L)
-/* I.S. List L tidak kosong */
-/* F.S. Menampilkan List yang ada, untuk menampilkan list wahana */
-{
-        printf("Ingin membangun apa?\n");
-        printf("List:\n");
-
-        int i = IdxMin;
-        while ( strcmp(Key(L,i),"undef") != 0 && i <= IdxMax)
-        {
-                printf("     - ");
-                printf("%s\n", Key(L,i));
-                i++;
-        }
 }
 
 boolean SearchListB(List L, char *Key)
