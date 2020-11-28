@@ -40,12 +40,17 @@ void STARTKATA2(char *filename);
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata, Membaca dari file eksternal */
 
+void SCANKATA();
+/* I.S. : CC sembarang 
+   F.S. : EndKata = true, dan CC = MARK; 
+          Untuk parsing command */
+
 void ADVKATA();
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi 
    F.S. : CKata adalah kata terakhir yang sudah diakuisisi, 
           CC adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika CC = MARK, EndKata = true.		  
-   Proses : Akuisisi kata menggunakan procedure SalinKata */
+   Proses : Jika terdapat kata pada TabKata maka akan menghapusnya kemudian mwngakuisisi kata menggunakan procedure SalinKata */
 
 void SalinKata();
 /* Mengakuisisi kata, menyimpan dalam CKata
@@ -54,5 +59,9 @@ void SalinKata();
           CC = BLANK atau CC = MARK; 
           CC adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+
+int toInt(char *num);
+/* I.S : parameter terdefinisi          */
+/* F.S : string num berubah menjadi int */
 
 #endif

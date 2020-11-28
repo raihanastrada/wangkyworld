@@ -26,6 +26,7 @@ void info(char *nama, int uang, int time_curr, int time_open, int time_remain, i
 }
 
 int strcmp(const char* str1, const char* str2); /* Buat ngecek strings */
+char* strcpy(char* destination, const char* source); /* Buat masukin ke strings (array of char) */
 
 int main()
 {
@@ -36,7 +37,7 @@ int main()
     printf("   __________     ___________     ______   \n");
     printf("  | new game |   | load game |   | exit |  \n");
     printf("  |__________|   |___________|   |______|  \n");
-    STARTKATA();
+    SCANKATA();
     
     if (strcmp(CKata.TabKata,"new") == 0)
     { running = true; }
@@ -44,12 +45,12 @@ int main()
     if (running)
     {   
         /* Info */
-        char *nama; 
+        char nama[20]; 
         printf("Memulai permainan baru...\n");
         printf("Masukkan nama: \n");
-        STARTKATA(); // Belom bisa ngambil input lagi setelah STARTKATA() awal
-        
-        nama = CKata.TabKata;
+        SCANKATA();
+
+        strcpy(nama, CKata.TabKata);
         int uang = 1000;
         int time_curr = 2100;
         int time_open = 1900;
@@ -62,14 +63,17 @@ int main()
         Map M1; //Map M1,M2,M3,M4
         CreateMap(10, 10, &M1);
         InitMap(&M1, "map1.txt");
-        List LM; // List Msterial
+        
+        List LM; // List Material
+        CreateList(&LM);
         InitList2(&LM);
 
         while (running)
         {
             PrintMap(M1);
             info(nama, uang, time_curr, time_open, time_remain, s_aksi, s_waktu, s_uang);
-            STARTKATA(); // Belom bisa ngambil input lagi setelah STARTKATA() awal
+            printf("Masukkan Perintah:\n");
+            SCANKATA();
 
             /* Bergerak (w,a,s,d) di Command Game */
             /* code */
@@ -81,11 +85,19 @@ int main()
             /* code */
 
             /* 'Buy' di Command Game */
-            if (strcmp(CKata.TabKata,"exit") == 0)
+            if (strcmp(CKata.TabKata,"buy") == 0)
             {
+                // KAMUS
+                char barang[20];
+                int jumlah;
+
                 PrintListM(LM);
-                /* Scan Nama Barang Harga */
-                /* Masukkin perintah Buy(LM, barang, jumlah, &uang) ke Stack */
+                
+                SCANKATA();
+                jumlah = toInt(CKata.TabKata);
+                ADVKATA();
+                strcpy(barang, CKata.TabKata);
+                Buy(LM,barang,jumlah,&uang);
             }
 
             /* 'Undo' di Command Game */
@@ -121,11 +133,8 @@ int main()
                 printf("|________________________|\n");
                 return 0;
             }
-            running = false; // Temporary buat ngestop
         }
     }
-        
-        
     
     /* EXIT */
     if (strcmp(CKata.TabKata,"exit") == 0)

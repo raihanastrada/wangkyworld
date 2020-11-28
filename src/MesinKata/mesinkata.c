@@ -1,5 +1,7 @@
 #include "mesinkata.h"
 #include "boolean.h"
+#include <stdio.h>
+#include <string.h>
 
 char CC;
 boolean EOP;
@@ -25,7 +27,7 @@ void STARTKATA()
 {
 	START();
 	IgnoreBlank();
-	ADVKATA();
+	ADVKATA();	
 }
 
 void STARTKATA2(char *filename)
@@ -34,7 +36,14 @@ void STARTKATA2(char *filename)
 	IgnoreBlank();
 	ADVKATA();
 }
-			  
+
+void SCANKATA()
+{
+	SCAN();
+	IgnoreBlank();
+	ADVKATA();
+}
+
 void ADVKATA()
 {
 	if (CC==MARK){
@@ -49,10 +58,18 @@ void ADVKATA()
 
 void SalinKata()
 {
+	memset(CKata.TabKata,0,CKata.Length);
 	CKata.Length = 0;
 	while ((CC != MARK) && (CC != BLANK) && (CC != NEWLINE) && (CKata.Length < NMax)) {
 		CKata.TabKata[CKata.Length] = CC;
 		ADV();
 		CKata.Length++;
 	}
+}
+
+int toInt(char *num)
+{
+	int result;
+	sscanf(num, "%d", &result);
+	return result;	
 }

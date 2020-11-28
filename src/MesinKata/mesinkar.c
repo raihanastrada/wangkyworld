@@ -9,7 +9,7 @@ static char retval;
 
 void START() 
 {
-    filename = stdin;
+	filename = stdin;
 	ADV();
 }
 
@@ -23,8 +23,20 @@ void ADV()
 {
 	retval = fscanf(filename,"%c",&CC);
 	EOP = (CC == MARK);
-	if (EOP) 
-    {
-       fclose(filename);
- 	}
+}
+
+void SCAN()
+{
+	filename = stdin;
+	ADVSCAN();
+}
+
+void ADVSCAN()
+{
+	if (EOP)
+	{
+		retval = fscanf(filename,"%c",&CC);	
+	}
+	retval = fscanf(filename,"%c",&CC);
+	EOP = (CC == MARK);
 }

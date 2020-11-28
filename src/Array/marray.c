@@ -6,8 +6,7 @@ int main()
 {
     List L;
     CreateList(&L);
-    InitList1(&L);
-    
+    InitList2(&L); //Membaca file eksternal material.txt
     printf("Menampilkan list barang\n");
     PrintListM(L);
 
@@ -40,34 +39,3 @@ int main()
 
     return 0;
 }
-
-
-/* Mengisi Matriks dengan Konfigurasi awal dari File Eksternal */
-/* 
-    char ch;
-    FILE *fp;
-    int i,j;
-    fp = fopen(filename, "r");
-    if (fp == NULL)
-    {
-        exit(EXIT_FAILURE);
-    }
-    for (ch = getc(fp); ch != EOF; ch = getc(fp))
-    {
-        if (ch != '\n')
-        {
-            i = char_to_int(ch);
-            ch = getc(fp);
-            if (ch == ' ')
-            {
-                ch = getc(fp);
-                j = char_to_int(ch);
-            }
-        }
-        else
-        {
-            Info(*M, i, j) = ch;
-        }
-    }  
-    fclose(fp);
-*/

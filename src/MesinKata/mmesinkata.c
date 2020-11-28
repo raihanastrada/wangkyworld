@@ -4,8 +4,14 @@
 int main()
 {
     char file[20];
-    char *fileptr = file; 
-    printf("Masukkan nama file: ");
+    char *fileptr = file;
+    printf("Masukkan input: ");
+    SCANKATA();
+    printf("%s\n",CKata.TabKata);
+    printf("Masukkan input: ");
+    SCANKATA();
+    printf("%s\n",CKata.TabKata);
+    printf("Masukkan filename: ");
     scanf("%s", fileptr);
     STARTKATA2(file);
     printf("Cek apakah terdapat kata\n");

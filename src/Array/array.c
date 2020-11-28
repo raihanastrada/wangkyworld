@@ -4,6 +4,8 @@
 #include "array.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "../MesinKata/mesinkar.h"
+#include "../MesinKata/mesinkata.h"
 
 int strcmp(const char* str1, const char* str2);
 char* strcpy(char* destination, const char* source);
@@ -39,7 +41,16 @@ void InitList2(List *L)
 /* I.S. List L kosong */
 /* F.S. List L diisi data dari file eksternal (.txt) */
 {
-
+        STARTKATA2("materials.txt");
+        int i = 0;
+        while (!EndKata && i<=IdxMax)
+        {
+            strcpy(Key(*L,i), CKata.TabKata);
+            ADVKATA();
+            Value(*L,i) = toInt(CKata.TabKata);
+            ADVKATA();
+            i++;
+        }
 }
 
 void PrintListM(List L)
@@ -122,7 +133,12 @@ void Buy(List L, char *Nama, int Quantity, int *Uang)
                 }
                 else
                 {
-                        printf("Uang tidak mencukupi");
+                        printf("Uang tidak mencukupi\n");
                 }
         }
+        else
+        {
+                printf("Tidak terdapat barang pada List\n");
+        }
+        
 }
