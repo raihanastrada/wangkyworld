@@ -36,9 +36,17 @@ void InitList2(List *L, char *filename);
 /* I.S. List L kosong */
 /* F.S. List L diisi data dari file eksternal (.txt) */
 
+void InitList3(List *L, char* filename);
+/* I.S. List L kosong */
+/* F.S. List L diisi data dari file eksternal (.txt) */
+
 void PrintListM(List L);
 /* I.S. List L tidak kosong */
 /* F.S. Menampilkan List yang ada, untuk menampilkan list pada buy */
+
+void PrintListW(List L);
+/* I.S. List L tidak kosong */
+/* F.S. Menampilkan List yang ada*/
 
 boolean SearchListB(List L, char *Key);
 /* I.S. List L dan Nama terdefinisi */

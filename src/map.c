@@ -105,7 +105,7 @@ boolean AvailInteraction(Map M, int i, int j)
 /* I.S. baris dan kolom terdefinisi */
 /* F.S. jika berada 1 petak di atas / bawah / kiri / kanan bangunan maka dapat berinteraksi */
 {
-    return (Info(M,i-1,j)=='W'||'A') || (Info(M,i+1,j)=='W'||'A') || (Info(M,i,j-1)=='W'||'A') || (Info(M,i,j+1)=='W'||'A');
+    return (Info(M,i-1,j)=='W'||Info(M,i-1,j)=='A') || (Info(M,i+1,j)=='W'||Info(M,i+1,j)=='A') || (Info(M,i,j-1)=='W'||Info(M,i,j-1)=='A') || (Info(M,i,j+1)=='W'||Info(M,i,j+1)=='A');
 }
 
 void Move(Map *M, char move)

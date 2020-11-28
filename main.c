@@ -3,6 +3,8 @@
 #include "./src/map.h"
 #include "./src/Array/array.h"
 #include "./src/MesinKata/mesinkata.h"
+#include "./src/Antrian/antrian.h"
+#include "./src/Antrian/listlinier.h"
 #include "./src/Jam/jam.h"
 #include <stdio.h>
 
@@ -75,20 +77,32 @@ int main()
         /* Inisialisasi Konfigurasi Game */
         Map M1; //Map M1,M2,M3,M4
         CreateMap(10, 10, &M1);
-        InitMap(&M1, "map1.txt");
+        InitMap(&M1, "./src/map1.txt");
         
         // List Material
         List LM; 
         CreateList(&LM);
-        InitList2(&LM,"materials.txt");
+        InitList2(&LM,"./src/Array/materials.txt");
 
         // List Command
         List LC;
         CreateList(&LC);
-        InitList2(&LC,"commands.txt");
+        InitList2(&LC,"./src/Array/commands.txt");
         int idx;
 
         // List Wahana
+        List LW;
+        CreateList(&LW);
+        InitList3(&LW, "./src/Array/wahana.txt");
+
+        // List Wahana Pemain
+        ListLin WahanaP;
+        CreateLEmpty(&WahanaP);
+
+        // Queue Antrian Pengunjung
+        Antrian AntrianP;
+        CreateAEmpty(&AntrianP);
+
         int day = 1;
         boolean main;
         while (running)
@@ -116,6 +130,7 @@ int main()
 
             /* Pengecekan Command Valid */
             idx = SearchList1(LC, CKata.TabKata);
+            printf("YOU TYPED: %s\n", CKata.TabKata);
             if (idx == IdxUndef) // Jika tidak terdapat pada list command
             {
                 printf("Command yang anda masukkan tidak valid\n");
@@ -128,7 +143,7 @@ int main()
                 /* 'Build' di Command Game */
                 if (idx == 4)
                 {
-                    /* code */
+                    PrintListW(LW);
                 }
 
                 /* 'Upgrade' di Command Game */
@@ -162,7 +177,8 @@ int main()
                 /* 'Execute' di Command Game */
                 if (idx == 8)
                 {
-                    /* code */
+                    int jmlPengunjung = 5;
+                    GeneratePengunjung(&AntrianP, WahanaP, jmlPengunjung, 7);
                 }
                 
                 /* 'Main' di Command Game */
