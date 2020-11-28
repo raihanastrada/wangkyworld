@@ -33,7 +33,7 @@ void CreateAEmpty (Antrian *A)
 }
 
 /****************** Manajemen Memori ******************/
-addrA AlokasiA (int X, List W)
+addrA AlokasiA (int X, ListLin W)
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak NilN, dan misalnya */
 /* menghasilkan P, maka Info(P)=X, NextA(P)=NilN */
@@ -80,7 +80,7 @@ addrA SearchA (Antrian A, int X)
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void Antri (Antrian *A, int X, List W)
+void Antri (Antrian *A, int X, ListLin W)
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen Antrian di akhir: elemen terakhir yang baru */
@@ -125,7 +125,7 @@ void Antri (Antrian *A, int X, List W)
 }
 
 /*** PENGHAPUSAN ELEMEN ***/
-void Keluar (Antrian *A, int *X, List *W)
+void Keluar (Antrian *A, int *X, ListLin *W)
 /* I.S. Antrian L tidak kosong  */
 /* F.S. Elemen pertama Antrian dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
@@ -158,14 +158,14 @@ int PanjangA (Antrian A)
 }
 
 /* PROSEDUR GAME */
-void GeneratePengunjung(Antrian *Antrian, List Wahana, int N, int seed) {
+void GeneratePengunjung(Antrian *Antrian, ListLin Wahana, int N, int seed) {
     int Length = NbElmtL(Wahana);
     srand(Length);
     int i;
     int j;
     int k;
     addrList W;
-    List Wishlist;
+    ListLin Wishlist;
     CreateAEmpty(Antrian);
     for (i = 0; i < N; i++) {
         CreateLEmpty(&Wishlist);

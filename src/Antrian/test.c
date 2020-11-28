@@ -5,7 +5,7 @@
 #include "listlinier.h"
 
 int main() {
-    List Wahana;
+    ListLin Wahana;
     CreateLEmpty(&Wahana);
     InsVFirstL(&Wahana, 101);
     InsVFirstL(&Wahana, 112);
