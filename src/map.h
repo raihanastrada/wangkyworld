@@ -9,6 +9,9 @@
 #define KolMin 0
 #define KolMax 10
 #define Nil -1
+#define Field '-'
+#define Player 'p'
+#define Border '*'
 
 typedef struct
 {
@@ -17,6 +20,7 @@ typedef struct
     int NKol; /* Banyaknya kolom */
     int PlayerX; /* Posisi Player dalam koordinat X */
     int PlayerY; /* Posisi Player dalam koordinat Y */
+	int IDM;
     // Graph Left; 
     // Graph Right;
 } Map;
@@ -27,15 +31,22 @@ typedef struct
 #define Info(M,i,j) (M).Mem[(i)][(j)]
 #define PlayerX(M) (M).PlayerX
 #define PlayerY(M) (M).PlayerY
+#define IDM(M) (M).IDM
 //#define Left(M) (M).Left
 //#define Right(M) (M).Right
 
 /********** KONSTRUKTOR **********/
-void CreateMap(int NB, int NK, Map *M);
+void CreateMap(int NB, int NK, Map *M, int ID);
 /* I.S. NB dan NK terdefinisi dan bernilai valid (NB & NK > 0) */
 /* F.S. Terbentuk Map M dengan panjang baris NB dan panjang kolom NK */
 
-void InitMap(Map *M, char filename[]);
+void InitPlayer(Map *M, int PlayerX, int PlayerY);
+
+void RetractPlayer(Map *M);
+
+void MakeMap(Map *M, char *filename);
+
+void InitMap(Map *M, char *filename);
 /* I.S. Map M kosong dan diisi */
 /* F.S. Map terinisialisasi */
 
@@ -58,6 +69,8 @@ boolean IsGerbang(Map M, int i, int j);
 boolean AvailInteraction(Map M, int i, int j);
 /* I.S. baris dan kolom terdefinisi */
 /* F.S. jika berada 1 petak di atas / bawah / kiri / kanan bangunan maka dapat berinteraksi */
+
+void Gerak(Map *M, boolean *done);
 
 void Move(Map *M, char move);
 /* I.S. Matriks terdefinisi & tidak kosong */
