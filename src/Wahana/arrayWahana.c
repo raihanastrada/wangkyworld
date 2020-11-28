@@ -4,7 +4,8 @@
 #include "arrayWahana.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "array.h"
+#include "../Array/array.h"
+#include "../Array/boolean.h"
 #include "../Antrian/listlinier.h"
 #include "../MesinKata/mesinkar.h"
 #include "../MesinKata/mesinkata.h"
@@ -95,7 +96,7 @@ boolean SearchListWB(ListW L, int idx)
     return found;
 }
 
-int SearchListW1(ListW L, int idx)
+int SearchListWName(ListW L, int idx)
 /* I.S. ListW L dan Nama terdefinisi */
 /* F.S. Mengembalikan indeks WName pada ListW L, jika tidak ada mengembalika IdxUndef */
 {
@@ -119,6 +120,33 @@ int SearchListW1(ListW L, int idx)
     else
     {
         return IdxUndef;
+    }
+}
+
+int SearchListWLvl(ListW L, int idx)
+/* I.S. ListW L dan Nama terdefinisi */
+/* F.S. Mengembalikan indeks WName pada ListW L, jika tidak ada mengembalikan ValUndef */
+{
+    boolean found = false;
+    int i = IdxMin;
+	while(ID(L,i) == idx && !found) // Looping selama ID bukan idx
+	{
+		if (ID(L,i) == idx) // Jika ditemukan ID pada ListW
+        {
+            found = true;
+        }
+        else
+        {
+            i++;
+        }
+	}
+    if (found)
+    {
+        return Level(L, i);
+    }
+    else
+    {
+        return ValUndef;
     }
 }
 

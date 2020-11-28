@@ -1,11 +1,11 @@
-/* File ListW of Materials */
-/* materials.h */
+/* File ListW of Wahana */
+/* arrayWahana.h */
 
 #ifndef ARRAYWAHANA_H
 #define ARRAYWAHANA_H
 
-#include "boolean.h"
-#include "array.h"
+#include "../Array/boolean.h"
+#include "../Array/array.h"
 #include "../Antrian/listlinier.h"
 
 #define IdxMax 19 /* Indeks maksimum array */
@@ -48,9 +48,13 @@ boolean SearchListWB(ListW L, int idx);
 /* I.S. ListW L dan Nama terdefinisi */
 /* F.S. Mengembalikan True jika WName terdapat pada ListW L */
 
-int SearchListW1(ListW L, int idx);
+int SearchListWName(ListW L, int idx);
 /* I.S. ListW L dan Nama terdefinisi */
 /* F.S. Mengembalikan indeks WName pada ListW L, jika tidak ada mengembalika IdxUndef */
+
+int SearchListWLvl(ListW L, int idx);
+/* I.S. ListW L dan Nama terdefinisi */
+/* F.S. Mengembalikan indeks Level pada ListW L, jika tidak ada mengembalika IdxUndef */
 
 void Build(ListW W, ListLin WahanaP, int idx, List *LM);
 /* I.S. Parameter Fungsi Terdefinisi */
