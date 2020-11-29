@@ -18,6 +18,15 @@ void InitDetails(ListW LW, ListLin WahanaP);
 void InitReport(ListW LW, ListLin WahanaP);
 /* Menu Report */
 
+void WahanaListing(ListW LW, ListLin WahanaP);
+/* Listing Wahana untuk Interface Details dan Report */
+
+void DetailWahana(ListW LW, int idx);
+/* Menampilkan Detail ID Wahana yang Dipilih */
+
+void ReportWahana(ListW LW, int idx);
+/* Menampilkan Report ID Wahana yang Dipilih */
+
 #endif
 
 	

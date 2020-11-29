@@ -69,7 +69,25 @@ void InitOffice(ListW LW, ListLin WahanaP)
 void InitDetails(ListW LW, ListLin WahanaP)
 /* Menu Details */
 {
-	printf("Menu Details\n");
+	WahanaListing(LW, WahanaP);
+	int ID;
+	printf("Masukkan ID Wahana yang ingin dilihat Detailnya\n");
+	scanf("%d",&ID);
+}
+
+void InitReport(ListW LW, ListLin WahanaP)
+/* Menu Report */
+{
+	printf("Menu Report\n");
+	WahanaListing(LW, WahanaP);
+	int ID;
+	printf("Masukkan ID Wahana yang ingin dilihat Reportnya\n");
+	scanf("%d",&ID);
+}
+
+void WahanaListing(ListW LW, ListLin WahanaP)
+/* Listing Wahana untuk Interface Details dan Report */
+{
 	addrList L = FirstL(WahanaP);
 	int idx, i;
 	boolean found;
@@ -80,7 +98,7 @@ void InitDetails(ListW LW, ListLin WahanaP)
 		idx = InfoL(L);
 		while (!found) {
 			if (ID(LW,i)==idx) {	
-				printf("     - ");
+				printf("%d - ",idx);
 				printf("%s\n", WName(LW,i));
 				found = true;
 			}
@@ -90,26 +108,16 @@ void InitDetails(ListW LW, ListLin WahanaP)
 	}
 }
 
-void InitReport(ListW LW, ListLin WahanaP)
-/* Menu Report */
+void DetailWahana(ListW LW, int idx)
+/* Menampilkan Detail ID Wahana yang Dipilih */
 {
-	printf("Menu Report\n");
-	addrList L = FirstL(WahanaP);
-	int idx, i;
-	boolean found;
-    while (L!=NilN)
-    {
-		i = 0;
-		found = false;
-		idx = InfoL(L);
-		while (!found) {
-			if (ID(LW,i)==idx) {	
-				printf("     - ");
-				printf("%s\n", WName(LW,i));
-				found = true;
-			}
-			i++;
-		}
-		L = NextL(L);
-	}
+	WahanaItem curr = WahanaFromID(LW, idx);
+	
+}
+
+void ReportWahana(ListW LW, int idx)
+/* Menampilkan Report ID Wahana yang Dipilih */
+{
+	WahanaItem curr = WahanaFromID(LW, idx);
+	
 }
