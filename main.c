@@ -5,6 +5,7 @@
 #include "./src/Wahana/arrayWahana.h"
 #include "./src/Wahana/arrayWMap.h"
 #include "./src/Wahana/stackWMap.h"
+#include "./src/Office/office.h"
 #include "./src/MesinKata/mesinkata.h"
 #include "./src/Antrian/antrian.h"
 #include "./src/Antrian/listlinier.h"
