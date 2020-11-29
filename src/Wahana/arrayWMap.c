@@ -51,7 +51,8 @@ boolean SearchWMap(ListWMap WMap, int posy, int posx, int NMap)
 {
     int i;
     for (i = 0; i < LenWM(WMap); i++) {
-        if (Absis(Loc(WMItem(WMap, i))) == posx && Ordinat(Loc(WMItem(WMap, i))) == posy && Quadrant(WMItem(WMap, i)) == NMap) {
+        WMapItemCopy WMElmt = WMItem(WMap, i);
+        if (Absis(Loc(WMElmt)) == posx && Ordinat(Loc(WMElmt)) == posy && Quadrant(WMElmt) == NMap) {
             return true;
         }
     }
@@ -62,10 +63,10 @@ void PushLWM(ListWMap *WMap, int ID, POINT Pos, int NMap)
 /* Menyimpan wahana item baru */
 /* prekondisi: IsPosTaken() false */
 {
-    LenWM(*WMap)++;
     IDW(WMItem(*WMap, LenWM(*WMap))) = ID;
     Loc(WMItem(*WMap, LenWM(*WMap))) = Pos;
     Quadrant(WMItem(*WMap, LenWM(*WMap))) = NMap;
+    LenWM(*WMap)++;
 }
 
 void DeleteLWM(ListWMap *WMap, int ID, POINT Pos, int NMap)
@@ -92,5 +93,13 @@ void DeleteLWM(ListWMap *WMap, int ID, POINT Pos, int NMap)
             }
         }
         i++;
+    }
+}
+
+void PrintWMap (ListWMap WMap) {
+    int i;
+    for (i = 0; i < LenWM(WMap); i++) {
+        WMapItemCopy WMElmt = WMItem(WMap, i);
+        printf("%d: i = %d, j = %d\n", IDW(WMElmt), Ordinat(Loc(WMElmt)), Absis(Loc(WMElmt)));
     }
 }

@@ -52,4 +52,7 @@ void DeleteLWM(ListWMap *WMap, int ID, POINT Pos, int NMap);
 /* Menghapus wahana item dari ListWMap */
 /* prekondisi: ada WMapItem dalam WMap dengan IDW, Pos, NMap */
 
+void PrintWMap (ListWMap WMap);
+/* Mencetak isi WMap */
+
 #endif
