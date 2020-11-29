@@ -47,7 +47,7 @@ void PrintPreviewMap(Map M, ListWMap WMap, StackWMap WBuild, int NMap)
 }
 
 /* ************ Menjalankan Command pada CmdStack ************ */
-void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, ListWMap *WMap, StackWMap *WBuild, ListMap *ListM, List *ListMat)
+void ExecuteCommand (CmdStack *S1, ListLin *WahanaP, int *uang, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, ListWMap *WMap, StackWMap *WBuild1, ListMap *ListM, List *ListMat)
 /* menjalankan command-command yang ada di CmdStack S */
 /* I.S. S mungkin kosong */
 /* F.S. melakukan build/upgrade/buy sesuai command yang ada di stack, lalu mulai main phase */
@@ -58,10 +58,29 @@ void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int 
     char detail[20];
     POINT position;
     int n_map;
+    int IDW;
+    POINT Pos;
+    int Quad;
     Command C;
     printf("Executing...\n");
+
+    CmdStack S;
+    CreateSEmpty(&S);
+    StackWMap WBuild;
+    CreateWMEmpty(&WBuild);
+    
+    while (!IsSEmpty(*S1)) {
+        PopCommand(S1, &C);
+        PushCommand(&S, C);
+    }
+
+    while (!IsWMEmpty(*WBuild1)) {
+        PopWahana(WBuild1, &IDW, &Pos, &Quad);
+        PushWahana(&WBuild, IDW, Pos, Quad);
+    }
+
     while (*s_aksi > 0) {
-        PopCommand(S, &C);
+        PopCommand(&S, &C);
         idx = Idx(C);
         amount = Jml(C);
         wahana = Whn(C);
@@ -70,10 +89,7 @@ void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int 
         n_map = NMap(C);
 
         if (idx == 4) {
-            int IDW;
-            POINT Pos;
-            int Quad;
-            PopWahana(WBuild, &IDW, &Pos, &Quad);
+            PopWahana(&WBuild, &IDW, &Pos, &Quad);
             PushLWM(WMap, wahana, position, n_map);
             if (SearchL(*WahanaP, wahana) == NilN) {
                 InsVFirstL(WahanaP, wahana);
@@ -157,6 +173,16 @@ void Build(ListW KamusWahana, List LC, int NMap, char *WName, ListMap *M, List *
             PushWahana(WBuild, IDWahana, pos, NMap);
             AssignC(&C, 4, 0, IDWahana, "", posx, posy, NMap);
             PushCommand(S, C);
+
+            if (MapNElmt(*M, NMap, posy, posx-1) == '-' && !(SearchSWMap(*WBuild, posy, posx-1, NMap)) && !(SearchWMap(*WMap, posy, posx-1, NMap))) {
+                Move(&MapN(*M, NMap), 'a');
+            } else if (MapNElmt(*M, NMap, posy, posx+1) == '-' && !(SearchSWMap(*WBuild, posy, posx+1, NMap)) && !(SearchWMap(*WMap, posy, posx+1, NMap))) {
+                Move(&MapN(*M, NMap), 'd');
+            } else if (MapNElmt(*M, NMap, posy-1, posx) == '-' && !(SearchSWMap(*WBuild, posy-1, posx, NMap)) && !(SearchWMap(*WMap, posy-1, posx, NMap))) {
+                Move(&MapN(*M, NMap), 'w');
+            } else if (MapNElmt(*M, NMap, posy+1, posx) == '-' && !(SearchSWMap(*WBuild, posy+1, posx, NMap)) && !(SearchWMap(*WMap, posy+1, posx, NMap))) {
+                Move(&MapN(*M, NMap), 's');
+            }
         } else {
             printf("Bahan tidak cukup.\n");
         }
