@@ -69,27 +69,47 @@ void InitOffice(ListW LW, ListLin WahanaP)
 void InitDetails(ListW LW, ListLin WahanaP)
 /* Menu Details */
 {
+	printf("Menu Details\n");
 	addrList L = FirstL(WahanaP);
-	int idx, i=0;
+	int idx, i;
 	boolean found;
-    while (i < 9)
+    while (L!=NilN)
     {
+		i = 0;
 		found = false;
 		idx = InfoL(L);
-		if (ID(LW,i)==idx) {	
-			printf("     - ");
-			printf("%s\n", WName(LW,i));
-			found = true;
+		while (!found) {
+			if (ID(LW,i)==idx) {	
+				printf("     - ");
+				printf("%s\n", WName(LW,i));
+				found = true;
+			}
+			i++;
 		}
-		if (found && NextL(L)!=NilN) {
-			L = NextL(L);
-		}
-		i++;
-    }
+		L = NextL(L);
+	}
 }
 
 void InitReport(ListW LW, ListLin WahanaP)
 /* Menu Report */
 {
-	printf("a\n");
+	printf("Menu Report\n");
+	addrList L = FirstL(WahanaP);
+	int idx, i;
+	boolean found;
+    while (L!=NilN)
+    {
+		i = 0;
+		found = false;
+		idx = InfoL(L);
+		while (!found) {
+			if (ID(LW,i)==idx) {	
+				printf("     - ");
+				printf("%s\n", WName(LW,i));
+				found = true;
+			}
+			i++;
+		}
+		L = NextL(L);
+	}
 }
