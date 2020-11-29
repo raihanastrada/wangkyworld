@@ -47,7 +47,7 @@ void PrintPreviewMap(Map M, ListWMap WMap, StackWMap WBuild, int NMap)
 }
 
 /* ************ Menjalankan Command pada CmdStack ************ */
-void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, JAM *time_goal, JAM *time_remain, ListMap *ListM, List *ListMat)
+void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, ListWMap *WMap, StackWMap *WBuild, ListMap *ListM, List *ListMat)
 /* menjalankan command-command yang ada di CmdStack S */
 /* I.S. S mungkin kosong */
 /* F.S. melakukan build/upgrade/buy sesuai command yang ada di stack, lalu mulai main phase */
@@ -61,7 +61,6 @@ void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int 
     Command C;
     printf("Executing...\n");
     while (*s_aksi > 0) {
-        printf("0\n");
         PopCommand(S, &C);
         idx = Idx(C);
         amount = Jml(C);
@@ -71,8 +70,12 @@ void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int 
         n_map = NMap(C);
 
         if (idx == 4) {
-            MapNElmt(*ListM, n_map, Ordinat(position), Absis(position)) = 'W';
-            if (SearchL(*WahanaP, wahana) != NilN) {
+            int IDW;
+            POINT Pos;
+            int Quad;
+            PopWahana(WBuild, &IDW, &Pos, &Quad);
+            PushLWM(WMap, wahana, position, n_map);
+            if (SearchL(*WahanaP, wahana) == NilN) {
                 InsVFirstL(WahanaP, wahana);
             }
         } else if (idx == 5) {
@@ -92,14 +95,13 @@ void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int 
     }
 
     *uang = *uang-*s_uang;
+    *time_curr = AddJam(JAMToDetik(*time_curr),*s_waktu);
 
-    *time_curr = MakeJAM(9,0,0);
-    *time_goal = MakeJAM(21,0,0);
     *s_uang = 0;
     *s_waktu = 0;
 }
 
-void Buy(List L, List LC, char *Nama, int Quantity, int Uang, int *s_uang, JAM time_remain, int *s_waktu, int *s_aksi, CmdStack *S)
+void Buy(List L, List LC, char *Nama, int Quantity, int Uang, int *s_uang, int time_remain, int *s_waktu, int *s_aksi, CmdStack *S)
 /* I.S. Parameter Fungsi Terdefinisi */
 /* F.S. Uang berkurang sebanyak (harga barang)*(quantity), jika uang tidak cukup maka akan ditampilkan pesan error
         & proses tidak dijalankan */
@@ -111,7 +113,7 @@ void Buy(List L, List LC, char *Nama, int Quantity, int Uang, int *s_uang, JAM t
         {
                 total = Value(L,idx)*Quantity+*s_uang;
                 addtime = Value(LC, SearchList1(LC, "buy"));
-                if (Uang > total && *s_waktu+addtime < 12*3600)
+                if (Uang > total && *s_waktu+addtime < time_remain)
                 {
                         *s_uang = total;
                         *s_waktu = *s_waktu+addtime;

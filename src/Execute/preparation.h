@@ -15,12 +15,12 @@ void PrintPreviewMap(Map M, ListWMap WMap, StackWMap WBuild, int NMap);
 /* Menampilkan peta pada kondisi preparation phase */
 
 /* ************ Menjalankan Command pada CmdStack ************ */
-void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, JAM *time_goal, JAM *time_remain, ListMap *ListM, List *ListMat);
+void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, ListWMap *WMap, StackWMap *WBuild, ListMap *ListM, List *ListMat);
 /* menjalankan command-command yang ada di CmdStack S */
 /* I.S. S mungkin kosong */
 /* F.S. melakukan build/upgrade/buy sesuai command yang ada di stack, lalu mulai main phase */
 
-void Buy(List L, List LC, char *Nama, int Quantity, int Uang, int *s_uang, JAM time_remain, int *s_waktu, int *s_aksi, CmdStack *S);
+void Buy(List L, List LC, char *Nama, int Quantity, int Uang, int *s_uang, int time_remain, int *s_waktu, int *s_aksi, CmdStack *S);
 /* I.S. Parameter Fungsi Terdefinisi */
 /* F.S. Uang berkurang sebanyak (harga barang)*(quantity), jika uang tidak cukup maka akan ditampilkan pesan error
         & proses tidak dijalankan */
