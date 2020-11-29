@@ -64,7 +64,19 @@ int main()
         printf("Memulai permainan baru...\n");
         printf("Masukkan nama: \n");
         SCANKATA();
+        
         strcpy(nama, CKata.TabKata);
+        while (!EndKata)
+        {
+            char temp[20]; 
+            strcpy(temp, CKata.TabKata);
+            ADVKATA();
+            if (strcmp(CKata.TabKata,temp) != 0)
+            {
+                strcat(nama, " ");
+                strcat(nama, CKata.TabKata);
+            }
+        }
         
         /* Inisiasi Uang */
         int uang = 1000;        
@@ -177,21 +189,25 @@ int main()
                 if (idx == 0)
                 {
                     Move(&(MapN(M, P_NMap)), 'w');
+                    time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
                 }
 
                 if (idx == 1)
                 {
                     Move(&(MapN(M, P_NMap)), 'a');
+                    time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
                 }
 
                 if (idx == 2)
                 {
                     Move(&(MapN(M, P_NMap)), 's');
+                    time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
                 }
 
                 if (idx == 3)
                 {
                     Move(&(MapN(M, P_NMap)), 'd');
+                    time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
                 }
 
                 /* 'Build' di Command Game */
@@ -248,7 +264,17 @@ int main()
                 /* 'Main' di Command Game */
                 if (idx == 9)
                 {
-                    /* code */
+                    if (main)
+                    {
+                        printf("Anda sedang berada di main phase!\n");
+                    }
+                    else
+                    {
+                        //int jmlPengunjung = 5;
+                        //GeneratePengunjung(&AntrianP, WahanaP, jmlPengunjung, 7);
+                        time_curr = time_open;
+                        Second(time_curr)++;
+                    }
                 }
                 
                 /* 'Serve' di Command Game */
@@ -280,7 +306,14 @@ int main()
                 /* 'Prepare' di Command Game */
                 if (idx == 14)
                 {
-                    /* code */
+                    if (!main)
+                    {
+                        printf("Anda sedang berada di preparation phase!\n");
+                    }
+                    else
+                    {
+                        time_curr = time_close;
+                    }
                 }
 
                 /* Exit di Command Game */
