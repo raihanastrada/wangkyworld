@@ -295,6 +295,10 @@ int main()
                 {
                     if (Idx(InfoTopS(s_commands)) == 4) {
                         UndoBuild(LW, LC, &MatPemain, &WBuild, &s_waktu, &s_aksi, &s_commands);
+                    } else if (Idx(InfoTopS(s_commands)) == 5) {
+                        // undo upgrade
+                    } else if (Idx(InfoTopS(s_commands)) == 6) {
+                        UndoBuy(LM, LC, &s_waktu, &s_aksi, &s_uang, &s_commands);
                     }
                 }
                 

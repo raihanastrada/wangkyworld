@@ -215,3 +215,15 @@ void UndoBuild(ListW KamusWahana, List LC, List *MatPemain, StackWMap *WBuild, i
     *s_waktu = *s_waktu-addtime;
     (*s_aksi)--;
 }
+
+void UndoBuy(List LM, List LC, int *s_waktu, int *s_aksi, int*s_uang, CmdStack *S)
+{
+    Command C;
+    PopCommand(S, &C);
+    int Quantity = Jml(C);
+    char *detail = Det(C);
+    *s_uang = *s_uang-Quantity*Value(LM, SearchList1(LM, detail));
+    int addtime = Value(LC, SearchList1(LC, "buy"));
+    *s_waktu = *s_waktu-addtime;
+    (*s_aksi)--;
+}

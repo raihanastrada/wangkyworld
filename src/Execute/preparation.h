@@ -29,4 +29,6 @@ void Build(ListW KamusWahana, List LC, int NMap, char *WName, ListMap *M, List *
 
 void UndoBuild(ListW KamusWahana, List LC, List *MatPemain, StackWMap *WBuild, int *s_waktu, int *s_aksi, CmdStack *S);
 
+void UndoBuy(List LM, List LC, int *s_waktu, int *s_aksi, int*s_uang, CmdStack *S);
+
 #endif
