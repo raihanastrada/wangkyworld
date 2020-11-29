@@ -109,9 +109,10 @@ int main()
         Map M4; //Map M4
         CreateMap(10, 10, &M4, 4);
         InitMap(&M1, "./src/map1.txt");
-        /*InitMap(&M2, "./src/map2.txt");
+        InitMap(&M2, "./src/map2.txt");
         InitMap(&M3, "./src/map3.txt");
-        InitMap(&M4, "./src/map4.txt");*/
+        InitMap(&M4, "./src/map4.txt");
+		InitPlayer(&M1,5,5);
 
         ListMap M; //List Map
         MakeListMap(&M, M1, M2, M3, M4);
@@ -182,29 +183,62 @@ int main()
             }
             else
             {
-                /* Bergerak (w,a,s,d) di Command Game */
+				/* Bergerak (w,a,s,d) di Command Game */
+				boolean pindah = false;
                 if (idx == 0)
                 {
-                    Move(&(MapN(M, P_NMap)), 'w');
-                    time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
+                    Move(&(MapN(M, P_NMap)), 'w', &pindah);
+					time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
+					if (P_NMap==4 && pindah) {
+						Generate1(M4,&M1);
+						P_NMap = 1;
+					}
+					else if (P_NMap==3 && pindah) {
+						Generate2(M3,&M2);
+						P_NMap = 2;
+					}
                 }
 
                 if (idx == 1)
                 {
-                    Move(&(MapN(M, P_NMap)), 'a');
-                    time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
+                    Move(&(MapN(M, P_NMap)), 'a', &pindah);
+					time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
+					if (P_NMap==2 && pindah) {
+						Generate1(M2,&M1);
+						P_NMap = 1;
+					}
+					else if (P_NMap==3 && pindah) {
+						Generate4(M3,&M4);
+						P_NMap = 4;
+					}
                 }
 
                 if (idx == 2)
                 {
-                    Move(&(MapN(M, P_NMap)), 's');
-                    time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
+                    Move(&(MapN(M, P_NMap)), 's', &pindah);
+					time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
+					if (P_NMap==1 && pindah) {
+						Generate4(M1,&M4);
+						P_NMap = 4;
+					}
+					else if (P_NMap==2 && pindah) {
+						Generate3(M2,&M3);
+						P_NMap = 3;
+					}
                 }
 
                 if (idx == 3)
                 {
-                    Move(&(MapN(M, P_NMap)), 'd');
-                    time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
+                    Move(&(MapN(M, P_NMap)), 'd', &pindah);
+					time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
+					if (P_NMap==1 && pindah) {
+						Generate2(M1,&M2);
+						P_NMap = 2;
+					}
+					else if (P_NMap==4 && pindah) {
+						Generate3(M4,&M3);
+						P_NMap = 3;
+					}
                 }
 
                 /* 'Build' di Command Game */

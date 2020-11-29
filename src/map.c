@@ -30,19 +30,15 @@ void CreateMap(int NB, int NK, Map *M, int ID)
 	IDM(*M) = ID;
 }
 
-void InitPlayer(Map *M, int PlayerX, int PlayerY)
+void InitPlayer(Map *M,int X, int Y)
 {
-	Info(*M,PlayerX,PlayerY) = Player;
+	PlayerX(*M) = X;
+	PlayerY(*M) = Y;
 }
 
 void RetractPlayer(Map *M)
 {
     Info(*M,PlayerX(*M),PlayerY(*M)) = '-';
-}
-
-void MakeMap(Map *M, char *filename)
-{
-	InitMap(M, filename);
 }
 
 void InitMap(Map *M, char *filename)
@@ -65,10 +61,10 @@ void InitMap(Map *M, char *filename)
 	}
 	STARTKATA2(filename);
 	int i = 0;
-    PlayerX(*M) = toInt(CKata.TabKata)+1;
-    ADVKATA();
-    PlayerY(*M) = toInt(CKata.TabKata)+1;
-    ADVKATA();
+    //PlayerX(*M) = toInt(CKata.TabKata)+1;
+    //ADVKATA();
+    //PlayerY(*M) = toInt(CKata.TabKata)+1;
+    //ADVKATA();
 	while(!EndKata) {
 		int j;
 		for (j=0;j<CKata.Length;j++) {
@@ -156,22 +152,8 @@ boolean AvailInteraction(Map M, int i, int j)
 			(Info(M,i,j+1)=='W'||Info(M,i,j+1)=='A'||Info(M,i,j+1)=='O'));
 }
 
-void Gerak(Map *M)
-{
-	boolean done = false;
-	while (!done) {
-		SCANKATA();
-		if (CKata.TabKata[0]=='w' || CKata.TabKata[0]=='a' || CKata.TabKata[0]=='s' || CKata.TabKata[0]=='d') {
-			Move(M,CKata.TabKata[0]);
-		}
-		else {
-			done = true;
-		}
-		PrintMap(*M);
-	}
-}
 
-void Move(Map *M, char move)
+void Move(Map *M, char move, boolean *pindah)
 /* I.S. Matriks terdefinisi & tidak kosong */
 /* F.S. Player bergerak berdasarkan input, 
 jika menabrak pagar Player tetap pada posisi awal, 
@@ -184,7 +166,7 @@ jika berada di atas office maka dapat berinteraksi dengan office */
     {
     case 'w':
 		if (IsBorder(*M,i-1,j)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
-        else if (!IsBorder(*M,i-1,j))
+        else if (!IsBorder(*M,i-1,j) && !IsGerbang(*M,i-1,j))
         {
             PlayerY(*M) = i-1;
 	        PlayerX(*M) = j;
@@ -192,13 +174,13 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         }
         else if (IsGerbang(*M,i-1,j))
         {
-            /* code */
+            *pindah = true;
         }
         
         break;
     case 'a':
 		if (IsBorder(*M,i,j-1)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
-        else if (!IsBorder(*M,i,j-1))
+        else if (!IsBorder(*M,i,j-1) && !IsGerbang(*M,i,j-1))
         {
             PlayerY(*M) = i;
 	        PlayerX(*M) = j-1;
@@ -206,13 +188,13 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         }
         else if (IsGerbang(*M,i,j-1))
         {
-            /* code */
+            *pindah = true;
         }
         
         break;
     case 's':
 		if (IsBorder(*M,i+1,j)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
-        else if (!IsBorder(*M,i+1,j))
+        else if (!IsBorder(*M,i+1,j) && !IsGerbang(*M,i+1,j))
         {
             PlayerY(*M) = i+1;
 	        PlayerX(*M) = j;
@@ -220,13 +202,13 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         }
         else if (IsGerbang(*M,i+1,j))
         {
-            /* code */
+            *pindah = true;
         }
         
         break;
     case 'd':
 		if (IsBorder(*M,i,j+1)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
-        else if (!IsBorder(*M,i,j+1))
+        else if (!IsBorder(*M,i,j+1) && !IsGerbang(*M,i,j+1))
         {
             PlayerY(*M) = i;
 	        PlayerX(*M) = j+1;
@@ -234,13 +216,53 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         }
         else if (IsGerbang(*M,i,j+1))
         {
-            /* code */
+            *pindah = true;
         }
 
         break;
     default:
         break;
     }
+}
+
+void Generate1(Map M, Map *Mnew)
+{
+	if (IDM(M)==4) {
+		InitPlayer(Mnew,5,10);
+	}
+	else {
+		InitPlayer(Mnew,10,5);
+	}
+}
+
+void Generate2(Map M, Map *Mnew)
+{
+	if (IDM(M)==3) {
+		InitPlayer(Mnew,5,10);
+	}
+	else {
+		InitPlayer(Mnew,1,5);
+	}	
+}
+
+void Generate3(Map M, Map *Mnew)
+{
+	if (IDM(M)==2) {
+		InitPlayer(Mnew,5,1);
+	}
+	else {
+		InitPlayer(Mnew,1,5);
+	}	
+}
+
+void Generate4(Map M, Map *Mnew)
+{
+	if (IDM(M)==1) {
+		InitPlayer(Mnew,5,1);
+	}
+	else {
+		InitPlayer(Mnew,10,5);
+	}	
 }
 
 void MakeListMap(ListMap *ListM, Map M1, Map M2, Map M3, Map M4)

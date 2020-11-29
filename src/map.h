@@ -49,11 +49,9 @@ void CreateMap(int NB, int NK, Map *M, int ID);
 /* I.S. NB dan NK terdefinisi dan bernilai valid (NB & NK > 0) */
 /* F.S. Terbentuk Map M dengan panjang baris NB dan panjang kolom NK */
 
-void InitPlayer(Map *M, int PlayerX, int PlayerY);
+void InitPlayer(Map *M, int X, int Y);
 
 void RetractPlayer(Map *M);
-
-void MakeMap(Map *M, char *filename);
 
 void InitMap(Map *M, char *filename);
 /* I.S. Map M kosong dan diisi */
@@ -81,11 +79,19 @@ boolean AvailInteraction(Map M, int i, int j);
 
 void Gerak(Map *M);
 
-void Move(Map *M, char move);
+void Move(Map *M, char move, boolean *pindah);
 /* I.S. Matriks terdefinisi & tidak kosong */
 /* F.S. Player bergerak berdasarkan input, 
 jika menabrak pagar Player tetap pada posisi awal, 
 jika berada di atas office maka dapat berinteraksi dengan office */
+
+void Generate1(Map M, Map *Mnew);
+
+void Generate2(Map M, Map *Mnew);
+
+void Generate3(Map M, Map *Mnew);
+
+void Generate4(Map M, Map *Mnew);
 
 void MakeListMap(ListMap *ListM, Map M1, Map M2, Map M3, Map M4);
 /* I.S. ListMap sembarang */
