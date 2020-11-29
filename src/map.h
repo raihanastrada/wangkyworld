@@ -50,8 +50,8 @@ void CreateMap(int NB, int NK, Map *M, int ID);
 /* F.S. Terbentuk Map M dengan panjang baris NB dan panjang kolom NK */
 
 void InitPlayer(Map *M, int X, int Y);
-
-void RetractPlayer(Map *M);
+/* I.S. Map Terdefinisi */
+/* F.S. Map Memindahkan posisi (X,Y) player. PlayerX = X, PlayerY = Y */
 
 void InitMap(Map *M, char *filename);
 /* I.S. Map M kosong dan diisi */
@@ -67,7 +67,11 @@ void PrintLegend();
 
 boolean IsBorder(Map M, int i, int j);
 /* I.S. Matriks Terdefinisi */
-/* F.S. Mengembalikan True jika Info[(i)][(j)] adalah border, border adalah bagian ujung (NBMin, NBMax, NKMin, NKMax) yang bukan gerbang */
+/* F.S. Mengembalikan True jika Info[(i)][(j)] adalah border, border adalah bagian ujung/tembok '*' yang bukan gerbang */
+
+boolean IsSolid(Map M, int i, int j);
+/* I.S. Matriks Terdefinisi */
+/* F.S. Mengembalikan True jika Info[(i)][(j)] adalah solid, solid adalah wahana atau antrian 'W' atau 'A' */
 
 boolean IsGerbang(Map M, int i, int j);
 /* I.S. Matriks Terdefinisi */
@@ -76,8 +80,6 @@ boolean IsGerbang(Map M, int i, int j);
 boolean AvailInteraction(Map M, int i, int j);
 /* I.S. baris dan kolom terdefinisi */
 /* F.S. jika berada 1 petak di atas / bawah / kiri / kanan bangunan maka dapat berinteraksi */
-
-void Gerak(Map *M);
 
 void Move(Map *M, char move, boolean *pindah);
 /* I.S. Matriks terdefinisi & tidak kosong */

@@ -31,15 +31,13 @@ void CreateMap(int NB, int NK, Map *M, int ID)
 }
 
 void InitPlayer(Map *M,int X, int Y)
+/* I.S. Map Terdefinisi */
+/* F.S. Map Memindahkan posisi (X,Y) player. PlayerX = X, PlayerY = Y */
 {
 	PlayerX(*M) = X;
 	PlayerY(*M) = Y;
 }
 
-void RetractPlayer(Map *M)
-{
-    Info(*M,PlayerX(*M),PlayerY(*M)) = '-';
-}
 
 void InitMap(Map *M, char *filename)
 /* I.S. Map M kosong dan siap diisi */
@@ -103,6 +101,13 @@ boolean IsBorder(Map M, int i, int j)
   return (Info(M,i,j)=='*');
 }
 
+boolean IsSolid(Map M, int i, int j)
+/* I.S. Matriks Terdefinisi */
+/* F.S. Mengembalikan True jika Info[(i)][(j)] adalah solid, solid adalah wahana atau antrian 'W' atau 'A' */
+{
+  return ((Info(M,i,j)=='W') || (Info(M,i,j)=='A'));
+}
+
 boolean IsGerbang(Map M, int i, int j)
 /* I.S. Matriks Terdefinisi */
 /* F.S. Mengembalikan True jika Info[(i)][(j)] adalah gerbang */
@@ -129,16 +134,12 @@ jika berada di atas office maka dapat berinteraksi dengan office */
 {
     int i = PlayerY(*M);
     int j = PlayerX(*M);
-	RetractPlayer(M);
     switch (move)
     {
     case 'w':
-		if (IsBorder(*M,i-1,j)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
-        else if (!IsBorder(*M,i-1,j) && !IsGerbang(*M,i-1,j))
+        if (!IsBorder(*M,i-1,j) && !IsSolid(*M,i-1,j) && !IsGerbang(*M,i-1,j))
         {
-            PlayerY(*M) = i-1;
-	        PlayerX(*M) = j;
-			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
+			InitPlayer(M, j, i-1));
         }
         else if (IsGerbang(*M,i-1,j))
         {
@@ -147,12 +148,9 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         
         break;
     case 'a':
-		if (IsBorder(*M,i,j-1)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
-        else if (!IsBorder(*M,i,j-1) && !IsGerbang(*M,i,j-1))
+        if (!IsBorder(*M,i,j-1) && !IsSolid(*M,i,j-1) && !IsGerbang(*M,i,j-1))
         {
-            PlayerY(*M) = i;
-	        PlayerX(*M) = j-1;
-			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
+			InitPlayer(M, j-1, i);
         }
         else if (IsGerbang(*M,i,j-1))
         {
@@ -161,12 +159,9 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         
         break;
     case 's':
-		if (IsBorder(*M,i+1,j)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
-        else if (!IsBorder(*M,i+1,j) && !IsGerbang(*M,i+1,j))
+        if (!IsBorder(*M,i+1,j) && !IsSolid(*M,i+1,j) && !IsGerbang(*M,i+1,j))
         {
-            PlayerY(*M) = i+1;
-	        PlayerX(*M) = j;
-			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
+            InitPlayer(M, j, i+1);
         }
         else if (IsGerbang(*M,i+1,j))
         {
@@ -175,12 +170,9 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         
         break;
     case 'd':
-		if (IsBorder(*M,i,j+1)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
-        else if (!IsBorder(*M,i,j+1) && !IsGerbang(*M,i,j+1))
+        if (!IsBorder(*M,i,j+1) && !IsSolid(*M,i,j+1) && !IsGerbang(*M,i,j+1))
         {
-            PlayerY(*M) = i;
-	        PlayerX(*M) = j+1;
-			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
+            InitPlayer(M, j+1, i);
         }
         else if (IsGerbang(*M,i,j+1))
         {
