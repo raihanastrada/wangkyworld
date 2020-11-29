@@ -178,7 +178,7 @@ void UndoBuild(ListW KamusWahana, List LC, List *MatPemain, StackWMap *WBuild, i
     for (i = 0; i < 5; i++) {
         Value(*MatPemain, i) = Value(*MatPemain, i) + Bahan(KamusWahana, idx, i);
     }
-    int addtime = SearchList1(LC, "build");
+    int addtime = Value(LC, SearchList1(LC, "build"));
     *s_waktu = *s_waktu-addtime;
     (*s_aksi)--;
 }

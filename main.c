@@ -254,7 +254,9 @@ int main()
                 /* 'Undo' di Command Game */
                 if (idx == 7)
                 {
-                    /* code */
+                    if (Idx(InfoTopS(s_commands)) == 4) {
+                        UndoBuild(LW, LC, &LM, &WBuild, &s_waktu, &s_aksi, &s_commands);
+                    }
                 }
                 
                 /* 'Execute' di Command Game */
@@ -262,7 +264,7 @@ int main()
                 {
                     if (!main) {
                         ExecuteCommand(&s_commands, &WahanaP, &uang, &s_aksi, &s_waktu, &s_uang, &time_curr, &LWMap, &WBuild, &M, &LM);
-                        if (time_curr == time_open) {
+                        if (JEQ(time_curr, time_open)) {
                             int jmlPengunjung = 5;
                             main = true;
                             time_curr = time_open;
