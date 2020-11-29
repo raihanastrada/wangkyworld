@@ -5,10 +5,10 @@
 #define STACKWMAP_H
 
 #include "../Array/boolean.h"
-#include "point.h"
+#include "../Point/point.h"
 #include "../map.h"
-#include "arrayWahana.h"
-#include "arrayWMap.h"
+#include "../Wahana/arrayWahana.h"
+#include "../arrayWMap/arrayWMap.h"
 
 #define NilWM -1
 #define MaxElWM 100

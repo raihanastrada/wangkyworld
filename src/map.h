@@ -2,8 +2,8 @@
 #define MAP_H
 
 #include "../adt/boolean.h"
-#include "./Wahana/arrayWMap.h"
-#include "./Wahana/stackWMap.h"
+#include "./arrayWMap/arrayWMap.h"
+#include "./stackWMap/stackWMap.h"
 // #include "adt/graph.h"
 
 #define BrsMin 0

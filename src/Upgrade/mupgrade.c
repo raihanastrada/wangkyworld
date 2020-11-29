@@ -1,5 +1,5 @@
 #include "upgradeWahana.h"
-#include "arrayWahana.h"
+#include "../Wahana/arrayWahana.h"
 #include <stdio.h>
 #include <stdlib.h>
 

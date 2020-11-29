@@ -3,11 +3,11 @@
 
 #include <stdio.h>
 #include "../Array/boolean.h"
-#include "point.h"
+#include "../Point/point.h"
 #include "../map.h"
 #include "stackWMap.h"
-#include "arrayWahana.h"
-#include "arrayWMap.h"
+#include "../Wahana/arrayWahana.h"
+#include "../arrayWMap/arrayWMap.h"
 
 void CreateWMEmpty (StackWMap *WMap)
 /* I.S. sembarang; */

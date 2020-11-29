@@ -3,7 +3,7 @@
 #define _UPGRADEWAHANA_H_
 
 /* Modul lain yang digunakan : */
-#include "arrayWahana.h"
+#include "../Wahana/arrayWahana.h"
 
 /* *** Definisi Type Pohon Upgrade *** */
 

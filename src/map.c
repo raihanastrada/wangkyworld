@@ -3,8 +3,8 @@
 
 #include "map.h"
 #include "./MesinKata/mesinkata.h"
-#include "./Wahana/arrayWMap.h"
-#include "./Wahana/stackWMap.h"
+#include "./arrayWMap/arrayWMap.h"
+#include "./stackWMap/stackWMap.h"
 #include <stdio.h>
 #include <stdlib.h>
 
