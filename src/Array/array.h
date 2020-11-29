@@ -48,9 +48,4 @@ int SearchList1(List L, char *Key);
 /* I.S. List L dan Nama terdefinisi */
 /* F.S. Mengembalikan indeks Key pada List L, jika tidak ada mengembalika IdxUndef */
 
-void Buy(List L, char *Nama, int Quantity, int *Uang);
-/* I.S. Parameter Fungsi Terdefinisi */
-/* F.S. Uang berkurang sebanyak (harga barang)*(quantity), jika uang tidak cukup maka akan ditampilkan pesan error
-        & proses tidak dijalankan */
-
 #endif
