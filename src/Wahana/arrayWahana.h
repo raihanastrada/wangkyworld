@@ -16,9 +16,13 @@
 typedef struct {
     char wname[50]; /* String nama wahana */
     int id; /* nomer ID wahana */
+    int harga; /* uang yang didapat dari wahana */
+    int kapasitas; /* kapasitas dari wahana */
     int duration; /* lama menaik wahana */
+    char wdesc[50]; /* deskripsi wahana */
     int level; /* level upgrade wahana */
-    int bahan[5];
+    int biaya; /* biaya upgrade wahana */
+    int bahan[5]; /* bahan upgrade wahana */
 } WahanaItem;
  
 typedef struct { 
@@ -28,8 +32,12 @@ typedef struct {
 /********** SELEKTOR **********/
 #define WName(L,i) (L).T[(i)].wname
 #define ID(L,i) (L).T[(i)].id
+#define Harga(L,i) (L).T[(i)].harga
+#define Kapasitas(L,i) (L).T[(i)].kapasitas
 #define Duration(L, i) (L).T[(i)].duration
+#define WDesc(L,i) (L).T[(i)].wdesc
 #define Level(L, i) (L).T[(i)].level
+#define Biaya(L,i) (L).T[(i)].biaya
 #define Bahan(L, i, j) (L).T[(i)].bahan[(j)]
 
 void CreateListW(ListW *L);

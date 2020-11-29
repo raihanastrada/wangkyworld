@@ -1,10 +1,11 @@
-Arabian Nuts 120 20 1 2 0 1 0 0
-Jelly House 105 20 1 0 0 3 0 0
-Cheese Dip 720 20 1 0 0 0 1 2
-Love Burger 304 20 1 0 0 1 0 2
-Pizza House 212 30 2 0 2 0 1 1
-Almond Lava 425 30 2 0 2 0 2 0
-Cocoa Rain 107 45 3 0 3 1 1 0
-Raspberry Pie 391 30 2 2 0 0 2 0
-Hazelnut River 511 45 3 3 0 2 0 0
+Arabian Nuts 120 100 3 20 Merry Go Round 1 150 2 0 1 0 0
+Jelly House 105 200 2 20 House of jelly 1 250 0 0 3 0 0
+Cheese Dip 720 250 1 20 Cheezy ferris wheel 1 300 0 0 0 1 2
+Love Burger 304 150 2 20 Tourist train ride 1 200 0 0 1 0 2
+Pizza House 212 400 2 30 Domino pizza hut 2 425 0 2 0 1 1
+Almond Lava 425 350 3 30 Bumper cars ride 2 375 0 2 0 2 0
+Cocoa Rain 107 600 3 45 Roller coaster ride 3 675 0 3 1 1 0
+Raspberry Pie 391 300 3 30 Berry nice hurricane 2 325 2 0 0 2 0
+Hazelnut River 511 700 4 45 Chocolate river raft 3 775 3 0 2 0 0
 .
+Wname // ID // Harga // Kapasitas // Duration // Deskripsi // Level // Biaya // Bahan

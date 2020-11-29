@@ -22,8 +22,12 @@ void CreateListW(ListW *L)
 	{
 		strcpy(WName(*L,i), "undef"); // Assign variabel "kosong"
         ID(*L,i) = ValUndef; // Assign variabel "kosong"
+        Harga(*L,i) = ValUndef; // Assign variabel "kosong"
+        Kapasitas(*L,i) = ValUndef; // Assign variabel "kosong"
         Duration(*L,i) = ValUndef; // Assign variabel "kosong"
+        strcpy(WDesc(*L,i), "undef"); // Assign variabel "kosong"
         Level(*L,i) = ValUndef; // Assign variabel "kosong"
+        Biaya(*L,i) = ValUndef; // Assign variabel "kosong"
         int j;
         for (j = 0; j < 5; j++) {
             Bahan(*L, i, j) = ValUndef;
@@ -40,16 +44,36 @@ void InitListW(ListW *L, char *filename)
     int j;
     while (!EndKata && i<=IdxMax)
     {
+        /* Nama */
         strcpy(WName(*L,i), CKata.TabKata);
         ADVKATA();
         strcat(WName(*L,i), " ");
         strcat(WName(*L,i), CKata.TabKata);
         ADVKATA();
+        /* ID */
         ID(*L,i) = toInt(CKata.TabKata);
         ADVKATA();
+        /* Harga */
+        Harga(*L,i) = toInt(CKata.TabKata);
+        ADVKATA();
+        /* Kapasitas */
+        Kapasitas(*L,i) = toInt(CKata.TabKata);
+        ADVKATA();
+        /* Durasi */
         Duration(*L,i) = toInt(CKata.TabKata);
         ADVKATA();
+        /* Deskripsi */
+        strcpy(WDesc(*L,i), CKata.TabKata);
+        ADVKATA();
+        strcat(WName(*L,i), " ");
+        strcat(WName(*L,i), CKata.TabKata);
+        ADVKATA();
+        strcat(WName(*L,i), " ");
+        strcat(WName(*L,i), CKata.TabKata);
+        /* Level */
         Level(*L,i) = toInt(CKata.TabKata);
+        /* Biaya */
+        Biaya(*L,i) = toInt(CKata.TabKata);
         for (j = 0; j < 5; j++) {
             ADVKATA();
             Bahan(*L, i, j) = toInt(CKata.TabKata);
