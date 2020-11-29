@@ -45,26 +45,13 @@ void InitMap(Map *M, char *filename)
 /* I.S. Map M kosong dan siap diisi */
 /* F.S. Map terinisialisasi */
 {
-    /* Mengisi map berdasakan file txt */
-    /* SEMENTARA */
-    /*
-	Info(*M,1,1) = 65;
-    Info(*M,5,9) = 62;
-    Info(*M,9,5) = 118;
-	PlayerX(*M) = 5;
-	PlayerY(*M) = 5;
-	*/
-    /* Info(*M,5,5) = 80; */
 	if (EndKata)
     {
 		EndKata = false;
 	}
 	STARTKATA2(filename);
 	int i = 0;
-    //PlayerX(*M) = toInt(CKata.TabKata)+1;
-    //ADVKATA();
-    //PlayerY(*M) = toInt(CKata.TabKata)+1;
-    //ADVKATA();
+
 	while(!EndKata) {
 		int j;
 		for (j=0;j<CKata.Length;j++) {
@@ -73,25 +60,6 @@ void InitMap(Map *M, char *filename)
 		ADVKATA();
 		i++;
 	}
-	/*
-    Mengisi bagian yang masih kosong atau belum termasuk dalam konfigurasi awal
-    for (int i = BrsMin; i < BrsMax; i++)
-    {
-        for (int j = KolMin; j < KolMax; j++)
-        {
-            if (Info(*M, i, j) == Nil)
-            {
-                if (IsBorder(*M,i,j))
-                {
-                    Info(*M, i, j) = '*';
-                }
-                else
-                {
-                    Info(*M, i, j) = '-';    
-                }    
-            }
-        }
-    }*/
 }
 
 /********** OPERASI **********/
@@ -225,46 +193,6 @@ jika berada di atas office maka dapat berinteraksi dengan office */
     }
 }
 
-void Generate1(Map M, Map *Mnew)
-{
-	if (IDM(M)==4) {
-		InitPlayer(Mnew,5,10);
-	}
-	else {
-		InitPlayer(Mnew,10,5);
-	}
-}
-
-void Generate2(Map M, Map *Mnew)
-{
-	if (IDM(M)==3) {
-		InitPlayer(Mnew,5,10);
-	}
-	else {
-		InitPlayer(Mnew,1,5);
-	}	
-}
-
-void Generate3(Map M, Map *Mnew)
-{
-	if (IDM(M)==2) {
-		InitPlayer(Mnew,5,1);
-	}
-	else {
-		InitPlayer(Mnew,1,5);
-	}	
-}
-
-void Generate4(Map M, Map *Mnew)
-{
-	if (IDM(M)==1) {
-		InitPlayer(Mnew,5,1);
-	}
-	else {
-		InitPlayer(Mnew,10,5);
-	}	
-}
-
 void MakeListMap(ListMap *ListM, Map M1, Map M2, Map M3, Map M4)
 /* I.S. ListMap sembarang */
 /* F.S. ListMap[0] berisi M1 ... hingga ListMap[3] berisi M4 */
@@ -274,34 +202,3 @@ void MakeListMap(ListMap *ListM, Map M1, Map M2, Map M3, Map M4)
     MapN(*ListM, 3) = M3;
     MapN(*ListM, 4) = M4;
 }
-
-/*
-int char_to_int(char c)
-{
-    int result;
-    switch (c)
-    {
-    case '1':
-        result = 1;
-    case '2':
-        result = 2;
-    case '3':
-        result = 3;
-    case '4':
-        result = 4;
-    case '5':
-        result = 5;
-    case '6':
-        result = 6;
-    case '7':
-        result = 7;
-    case '8':
-        result = 8;
-    case '9':
-        result = 9;
-    default:
-        result = 0;
-    }
-    return result;
-}
-*/

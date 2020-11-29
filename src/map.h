@@ -85,14 +85,6 @@ void Move(Map *M, char move, boolean *pindah);
 jika menabrak pagar Player tetap pada posisi awal, 
 jika berada di atas office maka dapat berinteraksi dengan office */
 
-void Generate1(Map M, Map *Mnew);
-
-void Generate2(Map M, Map *Mnew);
-
-void Generate3(Map M, Map *Mnew);
-
-void Generate4(Map M, Map *Mnew);
-
 void MakeListMap(ListMap *ListM, Map M1, Map M2, Map M3, Map M4);
 /* I.S. ListMap sembarang */
 /* F.S. ListMap[0] berisi M1 ... hingga ListMap[3] berisi M4 */

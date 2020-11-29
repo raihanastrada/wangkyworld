@@ -190,12 +190,12 @@ int main()
                     Move(&(MapN(M, P_NMap)), 'w', &pindah);
 					time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
 					if (P_NMap==4 && pindah) {
-						Generate1(M4,&M1);
 						P_NMap = 1;
+                        InitPlayer(&MapN(M, P_NMap),5,10);
 					}
 					else if (P_NMap==3 && pindah) {
-						Generate2(M3,&M2);
 						P_NMap = 2;
+                        InitPlayer(&MapN(M, P_NMap),5,10);
 					}
                 }
 
@@ -204,12 +204,12 @@ int main()
                     Move(&(MapN(M, P_NMap)), 'a', &pindah);
 					time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
 					if (P_NMap==2 && pindah) {
-						Generate1(M2,&M1);
 						P_NMap = 1;
+                        InitPlayer(&MapN(M, P_NMap),10,5);
 					}
 					else if (P_NMap==3 && pindah) {
-						Generate4(M3,&M4);
 						P_NMap = 4;
+                        InitPlayer(&MapN(M, P_NMap),10,5);
 					}
                 }
 
@@ -218,12 +218,12 @@ int main()
                     Move(&(MapN(M, P_NMap)), 's', &pindah);
 					time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
 					if (P_NMap==1 && pindah) {
-						Generate4(M1,&M4);
 						P_NMap = 4;
+                        InitPlayer(&MapN(M, P_NMap),5,1);
 					}
 					else if (P_NMap==2 && pindah) {
-						Generate3(M2,&M3);
 						P_NMap = 3;
+                        InitPlayer(&MapN(M, P_NMap),5,1);
 					}
                 }
 
@@ -232,12 +232,12 @@ int main()
                     Move(&(MapN(M, P_NMap)), 'd', &pindah);
 					time_curr = AddJam(JAMToDetik(time_curr), Value(LC,idx));
 					if (P_NMap==1 && pindah) {
-						Generate2(M1,&M2);
 						P_NMap = 2;
+                        InitPlayer(&MapN(M, P_NMap),1,5);
 					}
 					else if (P_NMap==4 && pindah) {
-						Generate3(M4,&M3);
 						P_NMap = 3;
+                        InitPlayer(&MapN(M, P_NMap),1,5);
 					}
                 }
 
