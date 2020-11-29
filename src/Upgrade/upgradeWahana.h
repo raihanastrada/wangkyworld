@@ -66,6 +66,14 @@ A
     E
 */
 
+void PrintUpgrade1(UpgradeTree P, ListW Wahana);
+/* I.S. Paramater terdefinisi dan ListW tidak Kosong */
+/* F.S. Menampilkan List Upgrade */
+
+void PrintUpgrade2(UpgradeTree P, ListW Wahana);
+/* I.S. Paramater terdefinisi dan ListW tidak Kosong */
+/* F.S. Menampilkan List Upgrade, untuk level 2 */
+
 /* *** Searching *** */
 boolean SearchTree(UpgradeTree P, int id);
 /* Mengirimkan true jika ada node dari P yang bernilai W */

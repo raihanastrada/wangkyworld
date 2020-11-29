@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include "../Array/boolean.h"
 #include "cmdstack.h"
-#include "../Wahana/point.h"
+#include "../Point/point.h"
 
 char* strcpy(char* destination, const char* source);
 

@@ -6,7 +6,7 @@
 
 #include "../Array/boolean.h"
 #include "../Array/array.h"
-#include "point.h"
+#include "../Point/point.h"
 
 #define IdxMaxW 99 /* Indeks maksimum array */
 #define IdxMinW 0 /* Indeks minimum array */

@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include "../Array/boolean.h"
 #include "../Array/array.h"
-#include "point.h"
-#include "stackWMap.h"
+#include "../Point/point.h"
+#include "../stackWMap/stackWMap.h"
 #include "arrayWMap.h"
 
 void CreateLWMEmpty(ListWMap *WMap)

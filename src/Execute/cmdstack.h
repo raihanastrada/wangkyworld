@@ -6,7 +6,7 @@
 #define cmdstack_H
 
 #include "../Array/boolean.h"
-#include "../Wahana/point.h"
+#include "../Point/point.h"
 
 #define NilS -1
 #define MaxEl 100
