@@ -156,6 +156,17 @@ int SearchListWLvl(ListW L, int idx)
     }
 }
 
+WahanaItem WahanaFromID(ListW L, int idx)
+/* I.S. ListW L dan idx terdefinisi, terdapat wahana dengan ID idx di L */
+/* F.S. Mengembalikan WahanaItem pada ListW L dengan ID idx */
+{
+	int i = IdxMin;
+	while(ID(L,i)!=idx) {
+		i++;
+	}
+	return WItem(L,i);
+}
+
 int IDFromWahana(ListW L, char *wname)
 /* I.S. ListW L dan wname terdefinisi, terdapat wahana dengan nama wname di L */
 /* F.S. Mengembalikan ID wahana pada ListW L dengan WName wname */

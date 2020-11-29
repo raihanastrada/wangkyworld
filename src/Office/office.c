@@ -73,6 +73,7 @@ void InitDetails(ListW LW, ListLin WahanaP)
 	int ID;
 	printf("Masukkan ID Wahana yang ingin dilihat Detailnya\n");
 	scanf("%d",&ID);
+	DetailWahana(LW,ID);
 }
 
 void InitReport(ListW LW, ListLin WahanaP)
@@ -112,7 +113,13 @@ void DetailWahana(ListW LW, int idx)
 /* Menampilkan Detail ID Wahana yang Dipilih */
 {
 	WahanaItem curr = WahanaFromID(LW, idx);
-	
+	printf("Nama : "); printf("%s\n",curr.wname);
+	printf("ID : "); printf("%d\n",curr.id);
+	printf("Harga : "); printf("%d\n",curr.harga);
+	printf("Kapasitas : "); printf("%d\n",curr.kapasitas);
+	printf("Durasi : "); printf("%d\n",curr.duration);
+	printf("Deskripsi : "); printf("%s\n",curr.wdesc);
+	printf("Level Upgrade : "); printf("%d\n",curr.level);
 }
 
 void ReportWahana(ListW LW, int idx)
