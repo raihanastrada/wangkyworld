@@ -156,16 +156,19 @@ boolean AvailInteraction(Map M, int i, int j)
 			(Info(M,i,j+1)=='W'||Info(M,i,j+1)=='A'||Info(M,i,j+1)=='O'));
 }
 
-void Gerak(Map *M, boolean *done)
+void Gerak(Map *M)
 {
-	SCANKATA();
-	if (CKata.TabKata[0]=='w' || CKata.TabKata[0]=='a' || CKata.TabKata[0]=='s' || CKata.TabKata[0]=='d') {
-		Move(M,CKata.TabKata[0]);
+	boolean done = false;
+	while (!done) {
+		SCANKATA();
+		if (CKata.TabKata[0]=='w' || CKata.TabKata[0]=='a' || CKata.TabKata[0]=='s' || CKata.TabKata[0]=='d') {
+			Move(M,CKata.TabKata[0]);
+		}
+		else {
+			done = true;
+		}
+		PrintMap(*M);
 	}
-	else {
-		*done = true;
-	}
-	PrintMap(*M);
 }
 
 void Move(Map *M, char move)
@@ -183,8 +186,8 @@ jika berada di atas office maka dapat berinteraksi dengan office */
 		if (IsBorder(*M,i-1,j)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
         else if (!IsBorder(*M,i-1,j))
         {
-            PlayerX(*M) = i-1;
-	        PlayerY(*M) = j;
+            PlayerY(*M) = i-1;
+	        PlayerX(*M) = j;
 			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
         }
         else if (IsGerbang(*M,i-1,j))
@@ -197,8 +200,8 @@ jika berada di atas office maka dapat berinteraksi dengan office */
 		if (IsBorder(*M,i,j-1)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
         else if (!IsBorder(*M,i,j-1))
         {
-            PlayerX(*M) = i;
-	        PlayerY(*M) = j-1;
+            PlayerY(*M) = i;
+	        PlayerX(*M) = j-1;
 			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
         }
         else if (IsGerbang(*M,i,j-1))
@@ -211,8 +214,8 @@ jika berada di atas office maka dapat berinteraksi dengan office */
 		if (IsBorder(*M,i+1,j)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
         else if (!IsBorder(*M,i+1,j))
         {
-            PlayerX(*M) = i+1;
-	        PlayerY(*M) = j;
+            PlayerY(*M) = i+1;
+	        PlayerX(*M) = j;
 			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
         }
         else if (IsGerbang(*M,i+1,j))
@@ -225,8 +228,8 @@ jika berada di atas office maka dapat berinteraksi dengan office */
 		if (IsBorder(*M,i,j+1)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
         else if (!IsBorder(*M,i,j+1))
         {
-            PlayerX(*M) = i;
-	        PlayerY(*M) = j+1;
+            PlayerY(*M) = i;
+	        PlayerX(*M) = j+1;
 			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
         }
         else if (IsGerbang(*M,i,j+1))

@@ -79,7 +79,7 @@ boolean AvailInteraction(Map M, int i, int j);
 /* I.S. baris dan kolom terdefinisi */
 /* F.S. jika berada 1 petak di atas / bawah / kiri / kanan bangunan maka dapat berinteraksi */
 
-void Gerak(Map *M, boolean *done);
+void Gerak(Map *M);
 
 void Move(Map *M, char move);
 /* I.S. Matriks terdefinisi & tidak kosong */
