@@ -139,7 +139,7 @@ jika berada di atas office maka dapat berinteraksi dengan office */
     case 'w':
         if (!IsBorder(*M,i-1,j) && !IsSolid(*M,i-1,j) && !IsGerbang(*M,i-1,j))
         {
-			InitPlayer(M, j, i-1));
+			InitPlayer(M, j, i-1);
         }
         else if (IsGerbang(*M,i-1,j))
         {

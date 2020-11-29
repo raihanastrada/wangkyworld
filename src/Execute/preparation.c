@@ -173,15 +173,16 @@ void Build(ListW KamusWahana, List LC, int NMap, char *WName, ListMap *M, List *
             PushWahana(WBuild, IDWahana, pos, NMap);
             AssignC(&C, 4, 0, IDWahana, "", posx, posy, NMap);
             PushCommand(S, C);
+            boolean pindah;
 
             if (MapNElmt(*M, NMap, posy, posx-1) == '-' && !(SearchSWMap(*WBuild, posy, posx-1, NMap)) && !(SearchWMap(*WMap, posy, posx-1, NMap))) {
-                Move(&MapN(*M, NMap), 'a');
+                Move(&MapN(*M, NMap), 'a', &pindah);
             } else if (MapNElmt(*M, NMap, posy, posx+1) == '-' && !(SearchSWMap(*WBuild, posy, posx+1, NMap)) && !(SearchWMap(*WMap, posy, posx+1, NMap))) {
-                Move(&MapN(*M, NMap), 'd');
+                Move(&MapN(*M, NMap), 'd', &pindah);
             } else if (MapNElmt(*M, NMap, posy-1, posx) == '-' && !(SearchSWMap(*WBuild, posy-1, posx, NMap)) && !(SearchWMap(*WMap, posy-1, posx, NMap))) {
-                Move(&MapN(*M, NMap), 'w');
+                Move(&MapN(*M, NMap), 'w', &pindah);
             } else if (MapNElmt(*M, NMap, posy+1, posx) == '-' && !(SearchSWMap(*WBuild, posy+1, posx, NMap)) && !(SearchWMap(*WMap, posy+1, posx, NMap))) {
-                Move(&MapN(*M, NMap), 's');
+                Move(&MapN(*M, NMap), 's', &pindah);
             }
         } else {
             printf("Bahan tidak cukup.\n");

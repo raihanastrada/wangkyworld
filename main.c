@@ -123,6 +123,11 @@ int main()
         CreateList(&LM);
         InitList2(&LM,"./src/Array/materials.txt");
 
+        // Inventory Material Pemain
+        List MatPemain;
+        CreateList(&LM);
+        InitList3(&LM,"./src/Array/materials.txt");
+
         // List Command
         List LC;
         CreateList(&LC);
@@ -253,7 +258,7 @@ int main()
                         ADVKATA();
                         strcat(wahana, " ");
                         strcat(wahana, CKata.TabKata);
-                        Build(LW, LC, P_NMap, wahana, &M, &LM, &LWMap, &WBuild, &s_waktu, &s_aksi, &s_commands);
+                        Build(LW, LC, P_NMap, wahana, &M, &MatPemain, &LWMap, &WBuild, &s_waktu, &s_aksi, &s_commands);
                     } else {
                         printf("Anda sedang berada di preparation phase!\n");
                     }
@@ -289,7 +294,7 @@ int main()
                 if (idx == 7)
                 {
                     if (Idx(InfoTopS(s_commands)) == 4) {
-                        UndoBuild(LW, LC, &LM, &WBuild, &s_waktu, &s_aksi, &s_commands);
+                        UndoBuild(LW, LC, &MatPemain, &WBuild, &s_waktu, &s_aksi, &s_commands);
                     }
                 }
                 
@@ -297,7 +302,7 @@ int main()
                 if (idx == 8)
                 {
                     if (!main) {
-                        ExecuteCommand(&s_commands, &WahanaP, &uang, &s_aksi, &s_waktu, &s_uang, &time_curr, &LWMap, &WBuild, &M, &LM);
+                        ExecuteCommand(&s_commands, &WahanaP, &uang, &s_aksi, &s_waktu, &s_uang, &time_curr, &LWMap, &WBuild, &M, &MatPemain);
                         if (JEQ(time_curr, time_open)) {
                             int jmlPengunjung = 5;
                             main = true;
@@ -313,7 +318,6 @@ int main()
                 if (idx == 9)
                 {
                     if (!main) {
-                        ExecuteCommand(&s_commands, &WahanaP, &uang, &s_aksi, &s_waktu, &s_uang, &time_curr, &LWMap, &WBuild, &M, &LM);
                         int jmlPengunjung = 5;
                         main = true;
                         time_curr = time_open;
