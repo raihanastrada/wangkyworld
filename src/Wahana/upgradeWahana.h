@@ -70,9 +70,18 @@ A
 boolean SearchTree(UpgradeTree P, int id);
 /* Mengirimkan true jika ada node dari P yang bernilai W */
 
+/* *** Fungsi-fungsi lain *** */
+boolean IsSkewLeft(UpgradeTree P);
+/* Mengirimkan true jika P adalah pohon condong kiri */
+/* Pohon kosong adalah pohon condong kiri */
+boolean IsSkewRight(UpgradeTree P);
+/* Mengirimkan true jika P adalah pohon condong kanan */
+/* Pohon kosong adalah pohon condong kanan */
+
 /* *** Operasi lain *** */
-void AddDaunTerkiri(UpgradeTree *P, int W);
-/* I.S. P boleh kosong */
-/* F.S. P bertambah simpulnya, dengan W sebagai simpul daun terkiri */
+void AddDaun(UpgradeTree *P, int X, int Y, boolean Kiri);
+/* I.S. P tidak kosong, X adalah salah satu daun Pohon Upgrade P */
+/* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau 
+        sebagai anak Kanan X (jika Kiri = false) */
 
 #endif

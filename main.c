@@ -151,11 +151,10 @@ int main()
 
         int day = 1;
         int P_NMap = 1; // Pemain berada di peta keberapa
-        boolean main;
+        boolean main = false;
         while (running)
         {
             printf("\n");
-            //main = JinRange(time_open, time_close, time_curr); // Menghasilkan true jika current time berada diantaro time opening dan closing
             if (!main) // Jika preparation phase
             {
                 printf("Preparation ");
@@ -346,7 +345,14 @@ int main()
                 /* 'Office' di Command Game */
                 if (idx == 13)
                 {
-                    /* code */
+                    if ((PlayerX(MapN(M, 1))==8) && (PlayerY(MapN(M, 1))==8))
+                    {
+						InitOffice(LW, WahanaP);
+					}
+					else 
+                    {
+						printf("Officenya mane bang?");
+                    }
                 }
 
                 /* 'Prepare' di Command Game */

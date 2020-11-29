@@ -1,5 +1,6 @@
 #include "upgradeWahana.h"
 #include "arrayWahana.h"
+#include "../array/boolean.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -45,25 +46,45 @@ void BuildUpgradeTree(ListW LW, UpgradeTree *P)
 /* I.S ListW tidak kosong */
 /* F.S Membuat pohon upgrade dari list wahana */
 {
-    /*int i = 0;
-    while ( Level(LW,i) != ValUndef && i <= IdxMax)
+  int i = 0;
+  *P = Tree(Level(LW,i),Nil,Nil);
+  while ( Level(LW,i) != ValUndef && i <= IdxMax)
+  {
+    if (Level(LW,i) == 2)
     {
-        if (IsUnerLeft(P))
+      if (IsTreeOneElmt(*P))
+      {
+        AddDaun(P,1,ID(LW,i),true);
+      }
+      else
+      {
+        if (Right(*P) == Nil)
         {
-           P = Tree(Akar(*P),AlokNode(ID(LW,i)),Right(*P));  
-        }
-        else if (IsTreeEmpty(P))
-        {
-            P = Tree(ID(LW,i),Nil,Nil);
-        }
-        else
-        {
-           P = Tree(Akar(*P),Left(*P),AlokNode(ID(LW,i))); 
-        }
-        i++;
+          Right(*P) = AlokNode(ID(LW,i));
+        }        
+      }
     }
-    
-    return P; */
+    i++;
+  }
+
+  i = 0;
+  while ( Level(LW,i) != ValUndef && i <= IdxMax)
+  {
+    if (Level(LW,i) == 3)
+    {
+      if (IsTreeOneElmt(Left(*P)) && IsTreeOneElmt(Right(*P)))
+      {
+        Left(Left(*P)) = AlokNode(ID(LW,i));
+        Left(Right(*P)) = AlokNode(ID(LW,i));
+      }
+      else
+      {
+        Right(Left(*P)) = AlokNode(ID(LW,i));
+        Right(Right(*P)) = AlokNode(ID(LW,i));
+      }
+    }
+    i++;
+  }
 }
 
 /* *** Predikat-Predikat Penting *** */
@@ -128,17 +149,77 @@ boolean SearchTree(UpgradeTree P, int id)
   }
 }
 
-/* *** Operasi lain *** */
-void AddDaunTerkiri(UpgradeTree *P, int id)
-/* I.S. P boleh kosong */
-/* F.S. P bertambah simpulnya, dengan W sebagai simpul daun terkiri */
+/* *** Fungsi-fungsi lain *** */
+boolean IsSkewLeft(UpgradeTree P)
+/* Mengirimkan true jika P adalah pohon condong kiri */
+/* Pohon kosong adalah pohon condong kiri */
 {
-  if (IsTreeEmpty(*P))
-  {  
-    *P = Tree(id,Nil,Nil);
+  if (IsTreeEmpty(P))
+  {
+    return true;
   }
   else
   {
-    AddDaunTerkiri(&Left(*P),id);
+    if(Right(P)!=Nil)
+    {
+      return false;
+    }
+    else
+    {
+      return IsSkewLeft(Left(P));
+    }
+  }
+}
+boolean IsSkewRight(UpgradeTree P)
+/* Mengirimkan true jika P adalah pohon condong kanan */
+/* Pohon kosong adalah pohon condong kanan */
+{
+  if (IsTreeEmpty(P))
+  {
+    return true;
+  }
+  else
+  {
+    if(Left(P)!=Nil)
+    {
+      return false;
+    }
+    else
+    {
+      return IsSkewRight(Right(P));
+    }
+  }
+}
+
+/* *** Operasi lain *** */
+void AddDaun(UpgradeTree *P, int X, int Y, boolean Kiri)
+/* I.S. P tidak kosong, X adalah salah satu daun Pohon Upgrade P */
+/* F.S. P bertambah simpulnya, dengan Y sebagai anak kiri X (jika Kiri = true), atau 
+        sebagai anak Kanan X (jika Kiri = false) */
+{
+  if (!IsTreeEmpty(*P))
+  {
+    if (Akar(*P) == X && IsTreeOneElmt(*P))
+    {
+      if (Kiri)
+      {
+        Left(*P) = Tree(Y,Nil,Nil);
+      }
+      else
+      {
+        Right(*P) = Tree(Y,Nil,Nil);
+      }
+    }
+    else
+    {
+      if (SearchTree(Left(*P), X))
+      {
+        AddDaun(&Left(*P),X,Y,Kiri);
+      }
+      else if (SearchTree(Right(*P), X))
+      {
+        AddDaun(&Right(*P),X,Y,Kiri);
+      }
+    }
   }
 }
