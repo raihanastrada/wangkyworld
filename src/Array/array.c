@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include "../MesinKata/mesinkar.h"
 #include "../MesinKata/mesinkata.h"
-#include "../Wahana/cmdstack.h"
+#include "../Execute/cmdstack.h"
 
 int strcmp(const char* str1, const char* str2);
 char* strcpy(char* destination, const char* source);
@@ -58,7 +58,6 @@ void InitList2(List *L, char *filename)
             ADVKATA();
             i++;
         }
-        EndKata = false;
 }
 
 void PrintListM(List L)
@@ -122,33 +121,4 @@ int SearchList1(List L, char *Key)
         {
                 return IdxUndef;
         }
-}
-
-void Buy(List L, char *Nama, int Quantity, int *Uang, CmdStack *S)
-/* I.S. Parameter Fungsi Terdefinisi */
-/* F.S. Uang berkurang sebanyak (harga barang)*(quantity), jika uang tidak cukup maka akan ditampilkan pesan error
-        & proses tidak dijalankan */
-{
-        int total;
-        int idx = SearchList1(L,Nama);
-        if (idx != IdxUndef)
-        {
-                total = Value(L,idx)*Quantity;
-                if (*Uang > total)
-                {
-                        *Uang -= total;
-                        Command C;
-                        AssignC(&C, 6, Quantity, 0, Nama, -1, -1, 0);
-                        PushCommand(&S, &C);
-                }
-                else
-                {
-                        printf("Uang tidak mencukupi\n");
-                }
-        }
-        else
-        {
-                printf("Tidak terdapat barang pada List\n");
-        }
-        
 }
