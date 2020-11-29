@@ -5,6 +5,7 @@
 #include "./src/Wahana/arrayWahana.h"
 #include "./src/Wahana/arrayWMap.h"
 #include "./src/Wahana/stackWMap.h"
+#include "./src/Wahana/upgradeWahana.h"
 #include "./src/Office/office.h"
 #include "./src/MesinKata/mesinkata.h"
 #include "./src/Antrian/antrian.h"
@@ -147,6 +148,10 @@ int main()
         ListWMap LWMap;
         CreateLWMEmpty(&LWMap);
 
+        // Upgrade Tree Wahana
+        UpgradeTree P;
+        BuildUpgradeTree(LW, &P);
+
         // Stack Wahana pada phase preparation
         StackWMap WBuild;
         CreateWMEmpty(&WBuild);
@@ -274,7 +279,46 @@ int main()
                 /* 'Upgrade' di Command Game */
                 if (idx == 5)
                 {
-                    /* code */
+                    /* Cek Apakah disekitar Player Terdapat Wahana */
+                    if ( SearchWMap(LWMap, PlayerX(MapN(M, P_NMap))-1, PlayerY(MapN(M, P_NMap)), P_NMap) || SearchWMap(LWMap, PlayerX(MapN(M, P_NMap))+1, PlayerY(MapN(M, P_NMap)), P_NMap) || SearchWMap(LWMap, PlayerX(MapN(M, P_NMap)), PlayerY(MapN(M, P_NMap))-1, P_NMap) || SearchWMap(LWMap, PlayerX(MapN(M, P_NMap)), PlayerY(MapN(M, P_NMap))+1, P_NMap))
+                    {
+                        /* Mencari Id Wahana yang ada disekitar */
+                        int i = 0;
+                        boolean found = false;
+                        while (i<IdxMaxW && !found)
+                        {
+                            if ( ( (LWMap).T[i].loc.X == PlayerX(MapN(M, P_NMap))-1 && (LWMap).T[i].loc.Y == PlayerY(MapN(M, P_NMap)) ) || ( (LWMap).T[i].loc.X == PlayerX(MapN(M, P_NMap))+1 && (LWMap).T[i].loc.Y == PlayerY(MapN(M, P_NMap)) ) || ( (LWMap).T[i].loc.X == PlayerX(MapN(M, P_NMap)) && (LWMap).T[i].loc.Y == PlayerY(MapN(M, P_NMap))-1 ) || ( (LWMap).T[i].loc.X == PlayerX(MapN(M, P_NMap)) && (LWMap).T[i].loc.Y == PlayerY(MapN(M, P_NMap))+1 ) )
+                            {
+                                found = true;
+                            }
+                            i++;
+                        }
+                        int id = (LWMap).T[i].id;
+                        int lv = SearchListWLvl(LW, id);
+                        /* Mengecek Level dari Wahana */
+                        if (lv == 1)
+                        {
+                            PrintUpgrade1(P,LW);
+                        }
+                        else if (lv == 2)
+                        {
+                            PrintUpgrade2(P,LW);
+                        }
+
+                        char wahana[NMax];
+
+                        SCANKATA();
+                        strcpy(wahana, CKata.TabKata);
+                        ADVKATA();
+                        strcat(wahana, " ");
+                        strcat(wahana, CKata.TabKata);
+
+                        // Masukkin perintah upgrade ke stack
+                    }
+                    else
+                    {
+                        printf("Tidak terdapat wahana disekitar yang dapat di upgrade\n");
+                    }
                 }
 
                 /* 'Buy' di Command Game */
@@ -354,7 +398,32 @@ int main()
                 /* 'Detail' di Command Game */
                 if (idx == 12)
                 {
-                    /* code */
+                    /* Cek Apakah disekitar Player Terdapat Wahana */
+                    if ( SearchWMap(LWMap, PlayerX(MapN(M, P_NMap))-1, PlayerY(MapN(M, P_NMap)), P_NMap) || SearchWMap(LWMap, PlayerX(MapN(M, P_NMap))+1, PlayerY(MapN(M, P_NMap)), P_NMap) || SearchWMap(LWMap, PlayerX(MapN(M, P_NMap)), PlayerY(MapN(M, P_NMap))-1, P_NMap) || SearchWMap(LWMap, PlayerX(MapN(M, P_NMap)), PlayerY(MapN(M, P_NMap))+1, P_NMap))
+                    {
+                        /* Mencari Id Wahana yang ada disekitar */
+                        int i = 0;
+                        boolean found = false;
+                        while (i<IdxMaxW && !found)
+                        {
+                            if ( ( (LWMap).T[i].loc.X == PlayerX(MapN(M, P_NMap))-1 && (LWMap).T[i].loc.Y == PlayerY(MapN(M, P_NMap)) ) || ( (LWMap).T[i].loc.X == PlayerX(MapN(M, P_NMap))+1 && (LWMap).T[i].loc.Y == PlayerY(MapN(M, P_NMap)) ) || ( (LWMap).T[i].loc.X == PlayerX(MapN(M, P_NMap)) && (LWMap).T[i].loc.Y == PlayerY(MapN(M, P_NMap))-1 ) || ( (LWMap).T[i].loc.X == PlayerX(MapN(M, P_NMap)) && (LWMap).T[i].loc.Y == PlayerY(MapN(M, P_NMap))+1 ) )
+                            {
+                                found = true;
+                            }
+                            i++;
+                        }
+                        int id = (LWMap).T[i].id;
+                        int idx = SearchListWName(LW,id);
+                        printf("Nama : %s\n", WName(LW,idx));
+                        printf("Lokasi : (%d,%d)\n", &((LWMap).T[i].loc.X), &(LWMap).T[i].loc.Y);
+                        printf("Upgrade(s): [] \n");
+                        printf("History %s\n", WName(LW,idx));
+                        printf("Status : Berfungsi\n");
+                    }
+                    else
+                    {
+                        printf("Tidak ada wahana disekitar");
+                    }
                 }
                 
                 /* 'Office' di Command Game */

@@ -223,3 +223,41 @@ void AddDaun(UpgradeTree *P, int X, int Y, boolean Kiri)
     }
   }
 }
+
+void PrintUpgrade1(UpgradeTree P, ListW Wahana)
+/* I.S. Paramater terdefinisi dan ListW tidak Kosong */
+/* F.S. Menampilkan List Upgrade */
+{
+  int IDLeft = Akar(Left(P));
+  int IDRight = Akar(Right(P));
+
+  int i = 0;
+  while (Level(Wahana,i) != ValUndef && i <= IdxMax)
+  {
+    if (IDLeft == ID(Wahana,i) || IDRight == ID(Wahana,i))
+    {
+      printf("     - ");
+      printf("%s\n", WName(Wahana,i)); // Menampilkan nama wahana
+    }
+    i++;
+  }
+}
+
+void PrintUpgrade2(UpgradeTree P, ListW Wahana)
+/* I.S. Paramater terdefinisi dan ListW tidak Kosong */
+/* F.S. Menampilkan List Upgrade, untuk level 2 */
+{ 
+  int IDLeft = Akar(Left(Left(P)));
+  int IDRight = Akar(Right(Right(P)));
+
+  int i = 0;
+  while (Level(Wahana,i) != ValUndef && i <= IdxMax)
+  {
+    if (IDLeft == ID(Wahana,i) || IDRight == ID(Wahana,i))
+    {
+      printf("     - ");
+      printf("%s\n", WName(Wahana,i)); // Menampilkan nama wahana
+    }
+    i++;
+  }
+}
