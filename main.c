@@ -125,8 +125,8 @@ int main()
 
         // Inventory Material Pemain
         List MatPemain;
-        CreateList(&LM);
-        InitList3(&LM,"./src/Array/materials.txt");
+        CreateList(&MatPemain);
+        InitList3(&MatPemain,"./src/Array/materials.txt");
 
         // List Command
         List LC;

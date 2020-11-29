@@ -60,6 +60,27 @@ void InitList2(List *L, char *filename)
         }
 }
 
+void InitList3(List *L, char *filename)
+/* I.S. List L kosong */
+/* F.S. List L diisi data dari file eksternal (.txt) */
+{
+        if (EndKata)
+        {
+                EndKata = false;
+        }
+        
+        STARTKATA2(filename);
+        int i = 0;
+        while (!EndKata && i<=IdxMax)
+        {
+            strcpy(Key(*L,i), CKata.TabKata);
+            ADVKATA();
+            Value(*L,i) = 50;
+            ADVKATA();
+            i++;
+        }
+}
+
 void PrintListM(List L)
 /* I.S. List L tidak kosong */
 /* F.S. Menampilkan List yang ada, untuk menampilkan list pada buy */

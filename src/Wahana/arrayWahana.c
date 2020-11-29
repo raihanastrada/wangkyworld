@@ -110,40 +110,24 @@ boolean SearchListWB(ListW L, int idx)
 /* I.S. ListW L dan Nama terdefinisi */
 /* F.S. Mengembalikan True jika WName terdapat pada ListW L */
 {
-    boolean found = false;
     int i = IdxMin;
-	while(ID(L,i) != idx && !found) // Looping selama ID bukan idx
+	while(ID(L,i) != idx) // Looping selama ID bukan idx
 	{
-		if (ID(L,i) == idx) // Jika ditemukan ID pada ListW
-        {
-            found = true;
-        }
-        else
-        {
-            i++;
-        }
+		i++;
 	}
-    return found;
+    return (ID(L,i) == idx);
 }
 
 int SearchListWName(ListW L, int idx)
 /* I.S. ListW L dan Nama terdefinisi */
 /* F.S. Mengembalikan indeks WName pada ListW L, jika tidak ada mengembalika IdxUndef */
 {
-    boolean found = false;
     int i = IdxMin;
-	while(ID(L,i) != idx && !found) // Looping selama ID bukan idx
+	while(ID(L,i) != idx) // Looping selama ID bukan idx
 	{
-		if (ID(L,i) == idx) // Jika ditemukan ID pada ListW
-        {
-            found = true;
-        }
-        else
-        {
-            i++;
-        }
+		i++;
 	}
-    if (found)
+    if (ID(L, i) == idx)
     {
         return i;
     }
@@ -157,20 +141,12 @@ int SearchListWLvl(ListW L, int idx)
 /* I.S. ListW L dan Nama terdefinisi */
 /* F.S. Mengembalikan indeks WName pada ListW L, jika tidak ada mengembalikan ValUndef */
 {
-    boolean found = false;
     int i = IdxMin;
-	while(ID(L,i) != idx && !found) // Looping selama ID bukan idx
+	while(ID(L,i) != idx) // Looping selama ID bukan idx
 	{
-		if (ID(L,i) == idx) // Jika ditemukan ID pada ListW
-        {
-            found = true;
-        }
-        else
-        {
-            i++;
-        }
+		i++;
 	}
-    if (found)
+    if (ID(L, i) == idx)
     {
         return Level(L, i);
     }
@@ -185,7 +161,6 @@ int IDFromWahana(ListW L, char *wname)
 /* F.S. Mengembalikan ID wahana pada ListW L dengan WName wname */
 {
     int i = IdxMin;
-    printf("YOU TYPED: %s\n", wname);
 	while(strcmp(WName(L,i), wname) != 0) // Looping selama ID bukan idx
 	{
         i++;

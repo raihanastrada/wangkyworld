@@ -129,18 +129,24 @@ void Buy(List L, List LC, char *Nama, int Quantity, int Uang, int *s_uang, int t
         {
                 total = Value(L,idx)*Quantity+*s_uang;
                 addtime = Value(LC, SearchList1(LC, "buy"));
-                if (Uang > total && *s_waktu+addtime < time_remain)
-                {
-                        *s_uang = total;
-                        *s_waktu = *s_waktu+addtime;
-                        (*s_aksi)++;
-                        Command C;
-                        AssignC(&C, 6, Quantity, 0, Nama, -1, -1, 0);
-                        PushCommand(S, C);
+                if (*s_waktu+addtime < time_remain) {
+                    if (Uang > total)
+                    {
+                            *s_uang = total;
+                            *s_waktu = *s_waktu+addtime;
+                            (*s_aksi)++;
+                            Command C;
+                            AssignC(&C, 6, Quantity, 0, Nama, -1, -1, 0);
+                            PushCommand(S, C);
+                    }
+                    else
+                    {
+                            printf("Uang tidak mencukupi\n");
+                    }
                 }
                 else
                 {
-                        printf("Uang tidak mencukupi\n");
+                    printf("Waktu tidak cukup.\n");
                 }
         }
         else
