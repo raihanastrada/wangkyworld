@@ -1,1 +1,1 @@
-gcc main.c src/map.c src/Array/array.c src/Jam/jam.c src/MesinKata/mesinkata.c src/MesinKata/mesinkar.c -o willygame
+gcc main.c src/map.c src/Array/array.c src/Wahana/arrayWahana.c src/Wahana/arrayWMap.c src/Wahana/stackWMap.c src/Wahana/point.c src/MesinKata/mesinkata.c src/MesinKata/mesinkar.c src/Antrian/antrian.c src/Antrian/listlinier.c src/Execute/cmdstack.c src/Execute/preparation.c src/Jam/jam.c -o willygame
