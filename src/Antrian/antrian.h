@@ -7,6 +7,7 @@
 #define antrian_H
 
 #include "../Array/boolean.h"
+#include "../Wahana/arrayWahana.h"
 #include "listlinier.h"
 
 #define NilN NULL
@@ -85,5 +86,7 @@ int PanjangA (Antrian A);
 
 void GeneratePengunjung(Antrian *Antrian, ListLin Wahana, int N, int seed);
 /* Menghasilkan N banyak pengunjung yang ingin menaiki jumlah wahana random dari Wahana; random buffer sebanyak seed kali */
+
+void PrintAntrian(Antrian A, ListW LW);
 
 #endif

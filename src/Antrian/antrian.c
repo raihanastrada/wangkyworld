@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../Array/boolean.h"
+#include "../Wahana/arrayWahana.h"
 #include "antrian.h"
 #include "listlinier.h"
 
@@ -232,5 +233,24 @@ void GeneratePengunjung(Antrian *Antrian, ListLin Wahana, int N, int seed) {
         }
 
         Antri(Antrian, 1, Wishlist, 5);
+    }
+}
+
+void PrintAntrian(Antrian A, ListW LW) {
+    addrA E = FirstA(A);
+    while (E != NilN) {
+        addrList W = FirstL(Wahana(E));
+        printf("(");
+        WahanaItem Whn;
+        while (W != NilN) {
+            Whn = WahanaFromID(LW, InfoL(W));
+            printf("%s", Whn.wname);
+            W = NextL(W);
+            if (W != NilN) {
+                printf(", ");
+            }
+        }
+        printf("), kesabaran: %d\n", Patience(E));
+        E = NextA(E);
     }
 }
