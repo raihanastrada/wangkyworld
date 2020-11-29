@@ -2,11 +2,13 @@
 
 #include "./src/map.h"
 #include "./src/Array/array.h"
-#include "./src/Array/arrayWahana.h"
+#include "./src/Wahana/arrayWahana.h"
+#include "./src/Wahana/arrayWMap.h"
+#include "./src/Wahana/stackWMap.h"
 #include "./src/MesinKata/mesinkata.h"
 #include "./src/Antrian/antrian.h"
 #include "./src/Antrian/listlinier.h"
-/*#include "./src/Execute/cmdstack.h"*/
+#include "./src/Execute/cmdstack.h"
 #include "./src/Jam/jam.h"
 #include <stdio.h>
 
@@ -70,12 +72,14 @@ int main()
         JAM time_curr = time_close;
         JAM time_goal = time_open;
         JAM time_remain;
+        int day = 1;
         
         /* Inisialisasi Stack */
         int s_aksi = 0;
         int s_waktu = 0; 
         int s_uang = 0;
-        /* CmdStack s_commands = 0; */
+        CmdStack s_commands;
+        CreateSEmpty(&s_commands);
 
         /* Inisialisasi Konfigurasi Game */
         Map M1; //Map M1,M2,M3,M4

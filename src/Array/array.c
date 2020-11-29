@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "../MesinKata/mesinkar.h"
 #include "../MesinKata/mesinkata.h"
+#include "../Wahana/cmdstack.h"
 
 int strcmp(const char* str1, const char* str2);
 char* strcpy(char* destination, const char* source);
@@ -123,7 +124,7 @@ int SearchList1(List L, char *Key)
         }
 }
 
-void Buy(List L, char *Nama, int Quantity, int *Uang)
+void Buy(List L, char *Nama, int Quantity, int *Uang, CmdStack *S)
 /* I.S. Parameter Fungsi Terdefinisi */
 /* F.S. Uang berkurang sebanyak (harga barang)*(quantity), jika uang tidak cukup maka akan ditampilkan pesan error
         & proses tidak dijalankan */
@@ -136,6 +137,9 @@ void Buy(List L, char *Nama, int Quantity, int *Uang)
                 if (*Uang > total)
                 {
                         *Uang -= total;
+                        Command C;
+                        AssignC(&C, 6, Quantity, 0, Nama, -1, -1, 0);
+                        PushCommand(&S, &C);
                 }
                 else
                 {

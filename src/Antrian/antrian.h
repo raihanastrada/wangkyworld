@@ -15,6 +15,7 @@ typedef struct tElmtAntrian *addrA;
 typedef struct tElmtAntrian { 
 	int priority;
     ListLin wahana;
+	int kesabaran;
 	addrA nextA;
 } ElmtAntrian;
 typedef struct {
@@ -24,6 +25,7 @@ typedef struct {
 
 #define Prio(E) (E)->priority
 #define Wahana(E) (E)->wahana
+#define Patience(E) (E)->kesabaran
 #define NextA(E) (E)->nextA
 #define FirstA(A) ((A).FirstA)
 #define LastA(A) ((A).LastA)
@@ -39,7 +41,7 @@ void CreateAEmpty (Antrian *A);
 /* F.S. Terbentuk Antrian kosong */
 
 /****************** Manajemen Memori ******************/
-addrA AlokasiA (int X, ListLin W);
+addrA AlokasiA (int X, ListLin W, int K);
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
 /* menghasilkan P, maka info(P)=X, Next(P)=Nil */
@@ -51,23 +53,31 @@ void DealokasiA (addrA *E);
 
 /****************** PENCARIAN SEBUAH ELEMEN Antrian ******************/
 addrA SearchA (Antrian A, int X);
-/* Mencari apakah ada elemen Antrian dengan info(P)= X */
+/* Mencari apakah ada elemen Antrian dengan info(P)< X */
+/* Jika ada, mengirimkan address elemen tersebut. */
+/* Jika tidak ada, mengirimkan last */
+
+addrA SearchK (Antrian A, int K);
+/* Mencari apakah ada elemen Antrian dengan Patience(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan Nil */
 
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void Antri (Antrian *A, int X, ListLin W);
+void Antri (Antrian *A, int X, ListLin W, int K);
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen Antrian di posisi sesuai prioritas */
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 
 /*** PENGHAPUSAN ELEMEN ***/
-void Keluar (Antrian *A, int *X, ListLin *W);
+void Keluar (Antrian *A, int *X, ListLin *W, int *K);
 /* I.S. Antrian L tidak kosong  */
 /* F.S. Elemen pertama Antrian dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
+void HilangSabar (Antrian *A);
+/* I.S. Antrian L tidak kosong  */
+/* F.S. Elemen dengan kesabaran 0 dihapus */
 
 /****************** PROSES SEMUA ELEMEN Antrian ******************/
 int PanjangA (Antrian A);

@@ -7,6 +7,7 @@
 
 #include "boolean.h"
 #include "../Jam/jam.h"
+#include "../Wahana/point.h"
 
 #define NilS -1
 #define MaxEl 100
@@ -14,10 +15,12 @@
 
 typedef int address;   /* indeks tabel */
 typedef struct {
-    int idx;
-    int amount;
-    int wahana;
-    char detail[20];
+    int idx; /* indeks command, sesuai main.c */
+    int amount; /* jumlah, jika buy */
+    int wahana; /* wahana, jika build/upgrade */
+    char detail[20]; /* nama item, jika buy */
+    POINT position; /* lokasi pada map, jika build/upgrade */
+    int n_map; /* terletak pada map keberapa, jika build/upgrade */
 } Command;
 
 /* Contoh deklarasi variabel bertype CmdStack dengan ciri TOP : */
@@ -37,12 +40,14 @@ typedef struct {
 #define Jml(C) (C).amount
 #define Whn(C) (C).wahana
 #define Det(C) (C).detail
-#define Top(S) (S).TOP
-#define InfoTop(S) (S).T[(S).TOP]
+#define Posn(C) (C).position
+#define NMap(C) (C).n_map
+#define TopS(S) (S).TOP
+#define InfoTopS(S) (S).T[(S).TOP]
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
-void CreateCEmpty (Command *C, int idx, int amount, int wahana, char detail[20]);
+void CreateCEmpty (Command *C, int idx, int amount, int wahana, char detail[20], int posX, int posY, int nmap);
 /* I.S. sembarang */
 /* F.S. Membuat Command C dengan index command idx, jumlah (jika tidak 0) amount */
 /* index wahana (jika tidak 0) wahana, dan keterangan (jika tidak kosong) detail */
@@ -60,19 +65,19 @@ boolean IsSFull (CmdStack S);
 /* Mengirim true jika tabel penampung nilai elemen CmdStack penuh */
 
 /* ************ Menambahkan sebuah elemen ke CmdStack ************ */
-void Push (CmdStack * S, infotype X);
+void PushCommand (CmdStack * S, infotype X);
 /* Menambahkan X sebagai elemen CmdStack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen CmdStack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen CmdStack ************ */
-void Pop (CmdStack * S, infotype* X);
+void PopCommand (CmdStack * S, infotype* X);
 /* Menghapus X dari CmdStack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
 /* ************ Menjalankan Command pada CmdStack ************ */
-void ExecuteCommand (CmdStack *S, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, JAM *time_goal, JAM *time_remain);
+void ExecuteCommand (CmdStack *S, int *uang, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, JAM *time_goal, JAM *time_remain, Map *M, List *ListMat);
 /* menjalankan command-command yang ada di CmdStack S */
 /* I.S. S mungkin kosong */
 /* F.S. melakukan build/upgrade/buy sesuai command yang ada di CmdStack, lalu mulai main phase */

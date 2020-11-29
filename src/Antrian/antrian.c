@@ -61,7 +61,7 @@ void DealokasiA (addrA *E)
 addrA SearchA (Antrian A, int X)
 /* Mencari apakah ada elemen Antrian dengan Info(P) < X */
 /* Jika ada, mengirimkan address elemen tersebut. */
-/* Jika tidak ada, mengirimkan NilN */
+/* Jika tidak ada, mengirimkan last */
 {
     if (IsAEmpty(A)) {
         return NilN;
@@ -78,15 +78,35 @@ addrA SearchA (Antrian A, int X)
     }
 }
 
+addrA SearchA (Antrian A, int K)
+/* Mencari apakah ada elemen Antrian dengan Patience(P) = K */
+/* Jika ada, mengirimkan address elemen tersebut. */
+/* Jika tidak ada, mengirimkan NilN */
+{
+    if (IsAEmpty(A)) {
+        return NilN;
+    } else {
+        addrA P1 = FirstA(A);
+        while ((NextA(P1) != NilN) && Patience(P1) != K) {
+            P1 = NextA(P1);
+        }
+        if (Patience(P1) == K) {
+            return P1;
+        } else {
+            return NilN(A);
+        }
+    }
+}
+
 /****************** PRIMITIF BERDASARKAN NILAI ******************/
 /*** PENAMBAHAN ELEMEN ***/
-void Antri (Antrian *A, int X, ListLin W)
+void Antri (Antrian *A, int X, ListLin W, int K)
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen Antrian di akhir: elemen terakhir yang baru */
 /* bernilai X jika alokasi berhasil. Jika alokasi gagal: I.S.= F.S. */
 {
-    addrA E = AlokasiA(X, W);
+    addrA E = AlokasiA(X, W, K);
     if (E != NULL) {
         if (IsAEmpty(*A)) {
             FirstA(*A) = E;
@@ -125,7 +145,7 @@ void Antri (Antrian *A, int X, ListLin W)
 }
 
 /*** PENGHAPUSAN ELEMEN ***/
-void Keluar (Antrian *A, int *X, ListLin *W)
+void Keluar (Antrian *A, int *X, ListLin *W, int *K)
 /* I.S. Antrian L tidak kosong  */
 /* F.S. Elemen pertama Antrian dihapus: nilai info disimpan pada X */
 /*      dan alamat elemen pertama di-dealokasi */
@@ -137,7 +157,27 @@ void Keluar (Antrian *A, int *X, ListLin *W)
     }
     *X = Prio(E);
     *W = Wahana(E);
+    *K = Patience(E);
     DealokasiA(&E);
+}
+
+void HilangSabar (Antrian *A)
+/* I.S. Antrian L tidak kosong  */
+/* F.S. Elemen dengan kesabaran 0 dihapus */
+{
+    addrA E = FirstA(*A);
+    while (E != Nil) {
+        if (Patience(E) == 0) {
+            E = NextA(E);
+            if (E == Nil) {
+                FirstA(*A) = NilN;
+                LastA(*A) = NilN;
+            }
+        } else {
+            FirstA(*A) = E;
+            break;
+        }
+    }
 }
 
 /****************** PROSES SEMUA ELEMEN Antrian ******************/

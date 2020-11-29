@@ -25,6 +25,11 @@ typedef struct
     // Graph Right;
 } Map;
 
+typedef struct
+{
+    Map LM[4];
+} ListMap;
+
 /********** SELEKTOR **********/
 #define NBrs(M) (M).NBrs
 #define NKol(M) (M).NKol
@@ -32,6 +37,8 @@ typedef struct
 #define PlayerX(M) (M).PlayerX
 #define PlayerY(M) (M).PlayerY
 #define IDM(M) (M).IDM
+#define MapN(ListM, N) (ListM).LM[N]
+#define MapNElmt(ListM, N, i, j) (ListM).LM[N].Mem[i][j]
 //#define Left(M) (M).Left
 //#define Right(M) (M).Right
 
@@ -77,5 +84,9 @@ void Move(Map *M, char move);
 /* F.S. Player bergerak berdasarkan input, 
 jika menabrak pagar Player tetap pada posisi awal, 
 jika berada di atas office maka dapat berinteraksi dengan office */
+
+void MakeListMap(ListMap *ListM, Map M1, Map M2, Map M3, Map M4);
+/* I.S. ListMap sembarang */
+/* F.S. ListMap[0] berisi M1 ... hingga ListMap[3] berisi M4 */
 
 #endif

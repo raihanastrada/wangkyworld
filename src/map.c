@@ -116,8 +116,8 @@ void PrintMap(Map M)
     PrintLegend();
 }
 
-/*void PrintPreviewMap(Map M, ListWMap WMap)
-Menampilkan peta pada kondisi preparation phase
+void PrintPreviewMap(Map M, ListWMap WMap)
+/* Menampilkan peta pada kondisi preparation phase */
 {
     Building B;
     for (int i = BrsMin; i < BrsMax; i++)
@@ -140,23 +140,6 @@ Menampilkan peta pada kondisi preparation phase
     }
     PrintLegend();
 }
-
-void MergeMap(Map *M, ListWMap WMap)
-finalisasi perubahan pada Map pada preparation phase
-{
-    Building B;
-    for (int i = BrsMin; i < BrsMax; i++)
-    {
-        for (int j = KolMin; j < KolMax; j++)
-        {
-            B = SearchWMap(WMap, i, j)
-            if (B != NilB)
-            {
-                Info(*M, i, j) = BType(B);
-            }
-        }
-    }
-}*/
 
 void PrintLegend()
 /* Menampilkan Legenda Peta */
@@ -275,6 +258,16 @@ jika berada di atas office maka dapat berinteraksi dengan office */
     default:
         break;
     }
+}
+
+void MakeListMap(ListMap *ListM, Map M1, Map M2, Map M3, Map M4)
+/* I.S. ListMap sembarang */
+/* F.S. ListMap[0] berisi M1 ... hingga ListMap[3] berisi M4 */
+{
+    MapN(*ListM, 0) = M1;
+    MapN(*ListM, 1) = M2;
+    MapN(*ListM, 2) = M3;
+    MapN(*ListM, 3) = M4;
 }
 
 /*
