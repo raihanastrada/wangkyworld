@@ -65,13 +65,15 @@ void InitListW(ListW *L, char *filename)
         /* Deskripsi */
         strcpy(WDesc(*L,i), CKata.TabKata);
         ADVKATA();
-        strcat(WName(*L,i), " ");
-        strcat(WName(*L,i), CKata.TabKata);
+        strcat(WDesc(*L,i), " ");
+        strcat(WDesc(*L,i), CKata.TabKata);
         ADVKATA();
-        strcat(WName(*L,i), " ");
-        strcat(WName(*L,i), CKata.TabKata);
+        strcat(WDesc(*L,i), " ");
+        strcat(WDesc(*L,i), CKata.TabKata);
+        ADVKATA();
         /* Level */
         Level(*L,i) = toInt(CKata.TabKata);
+        ADVKATA();
         /* Biaya */
         Biaya(*L,i) = toInt(CKata.TabKata);
         for (j = 0; j < 5; j++) {
