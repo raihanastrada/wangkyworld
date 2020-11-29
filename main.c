@@ -14,7 +14,7 @@
 #include <stdio.h>
 
 
-void info(char *nama, int uang, JAM time_curr, JAM time_goal, JAM time_remain, int s_aksi, int s_waktu, int s_uang)
+void info(char *nama, int uang, JAM time_curr, JAM time_goal, int time_remain, int s_aksi, int s_waktu, int s_uang, boolean main)
 {
     printf("Nama: ");
     printf("%s\n", nama);
@@ -23,11 +23,15 @@ void info(char *nama, int uang, JAM time_curr, JAM time_goal, JAM time_remain, i
     printf("Current Time: ");
     TulisJAM(time_curr);
     printf("\n");
-    printf("Opening Time: ");
+    if (!main) {
+        printf("Closing Time: ");
+    } else {
+        printf("Opening Time: ");
+    }
     TulisJAM(time_goal);
     printf("\n");
     printf("Time remaining: ");
-    TulisDurasi(time_remain);
+    TulisDurasi(DetikToJAM(time_remain));
     printf("\n");
     printf("Total aksi yang akan dilakukan: ");
     printf("%d\n", s_aksi);
@@ -86,7 +90,7 @@ int main()
         JAM time_close = MakeJAM(21,0,0);
         JAM time_curr = time_close;
         JAM time_goal = time_open;
-        JAM time_remain;
+        int time_remain;
         
         /* Inisialisasi Stack */
         int s_aksi = 0;
@@ -150,7 +154,7 @@ int main()
         while (running)
         {
             printf("\n");
-            main = JinRange(time_open, time_close, time_curr); // Menghasilkan true jika current time berada diantaro time opening dan closing
+            //main = JinRange(time_open, time_close, time_curr); // Menghasilkan true jika current time berada diantaro time opening dan closing
             if (!main) // Jika preparation phase
             {
                 printf("Preparation ");
@@ -162,17 +166,10 @@ int main()
                 time_goal = time_close;
             }
             printf("phase day %d\n",day);
-            time_remain = Durasi(time_curr,time_goal);
+            time_remain = JAMToDetik(Durasi(time_curr,time_goal));
             
-            if (main) {
-                PrintMap(MapN(M, P_NMap));
-            } else {
-                PrintPreviewMap(MapN(M, P_NMap), LWMap, WBuild, P_NMap);
-                if (!IsWMEmpty(WBuild)) {
-                    printf("%d %d \n", Ordinat(Loc(TopItem(WBuild))), Absis(Loc(TopItem(WBuild))));
-                }
-            }
-            info(nama, uang, time_curr, time_goal, time_remain, s_aksi, s_waktu, s_uang);
+            PrintPreviewMap(MapN(M, P_NMap), LWMap, WBuild, P_NMap);
+            info(nama, uang, time_curr, time_goal, time_remain, s_aksi, s_waktu, s_uang, main);
             printf("\n");
             printf("Masukkan Perintah:\n");
             SCANKATA();
@@ -213,15 +210,19 @@ int main()
                 /* 'Build' di Command Game */
                 if (idx == 4)
                 {
-                    PrintListW(LW);
-                    char wahana[NMax];
+                    if (!main) {
+                        PrintListW(LW);
+                        char wahana[NMax];
 
-                    SCANKATA();
-                    strcpy(wahana, CKata.TabKata);
-                    SCANKATA();
-                    strcat(wahana, " ");
-                    strcat(wahana, CKata.TabKata);
-                    Build(LW, LC, P_NMap, wahana, &M, &LM, &LWMap, &WBuild, &s_waktu, &s_aksi, &s_commands);
+                        SCANKATA();
+                        strcpy(wahana, CKata.TabKata);
+                        ADVKATA();
+                        strcat(wahana, " ");
+                        strcat(wahana, CKata.TabKata);
+                        Build(LW, LC, P_NMap, wahana, &M, &LM, &LWMap, &WBuild, &s_waktu, &s_aksi, &s_commands);
+                    } else {
+                        printf("Anda sedang berada di preparation phase!\n");
+                    }
                 }
 
                 /* 'Upgrade' di Command Game */
@@ -234,16 +235,20 @@ int main()
                 if (idx == 6)
                 {
                     // KAMUS
-                    char barang[20];
-                    int jumlah;
+                    if (!main) {
+                        char barang[20];
+                        int jumlah;
 
-                    PrintListM(LM);
+                        PrintListM(LM);
 
-                    SCANKATA();
-                    jumlah = toInt(CKata.TabKata);
-                    ADVKATA();
-                    strcpy(barang, CKata.TabKata);
-                    Buy(LM,LC,barang,jumlah,uang,&s_uang,time_remain,&s_waktu,&s_aksi,&s_commands);
+                        SCANKATA();
+                        jumlah = toInt(CKata.TabKata);
+                        ADVKATA();
+                        strcpy(barang, CKata.TabKata);
+                        Buy(LM,LC,barang,jumlah,uang,&s_uang,time_remain,&s_waktu,&s_aksi,&s_commands);
+                    } else {
+                        printf("Anda sedang berada di preparation phase!\n");
+                    }
                 }
 
                 /* 'Undo' di Command Game */
@@ -255,25 +260,30 @@ int main()
                 /* 'Execute' di Command Game */
                 if (idx == 8)
                 {
-                    int jmlPengunjung = 5;
-                    InsVFirstL(&WahanaP, 105);
-                    GeneratePengunjung(&AntrianP, WahanaP, jmlPengunjung, 7);
-                    /*ExecuteCommand(&s_commands, &uang, &s_aksi, &s_waktu, &s_uang, &time_curr, &time_goal, &time_remain, &M, &LM);*/
+                    if (!main) {
+                        ExecuteCommand(&s_commands, &WahanaP, &uang, &s_aksi, &s_waktu, &s_uang, &time_curr, &LWMap, &WBuild, &M, &LM);
+                        if (time_curr == time_open) {
+                            int jmlPengunjung = 5;
+                            main = true;
+                            time_curr = time_open;
+                            GeneratePengunjung(&AntrianP, WahanaP, jmlPengunjung, 7);
+                        }
+                    } else {
+                        printf("Anda sedang berada di preparation phase!\n");
+                    }
                 }
                 
                 /* 'Main' di Command Game */
                 if (idx == 9)
                 {
-                    if (main)
-                    {
-                        printf("Anda sedang berada di main phase!\n");
-                    }
-                    else
-                    {
-                        //int jmlPengunjung = 5;
-                        //GeneratePengunjung(&AntrianP, WahanaP, jmlPengunjung, 7);
+                    if (!main) {
+                        ExecuteCommand(&s_commands, &WahanaP, &uang, &s_aksi, &s_waktu, &s_uang, &time_curr, &LWMap, &WBuild, &M, &LM);
+                        int jmlPengunjung = 5;
+                        main = true;
                         time_curr = time_open;
-                        Second(time_curr)++;
+                        GeneratePengunjung(&AntrianP, WahanaP, jmlPengunjung, 7);
+                    } else {
+                        printf("Anda sedang berada di main phase!\n");
                     }
                 }
                 
@@ -306,13 +316,15 @@ int main()
                 /* 'Prepare' di Command Game */
                 if (idx == 14)
                 {
-                    if (!main)
-                    {
-                        printf("Anda sedang berada di preparation phase!\n");
-                    }
-                    else
-                    {
+                    if (main) {
+                        s_waktu = 0;
+                        s_aksi = 0;
+                        s_uang = 0;
                         time_curr = time_close;
+                        main = false;
+                        day++;
+                    } else {
+                        printf("Anda sedang berada di preparation phase!\n");
                     }
                 }
 
