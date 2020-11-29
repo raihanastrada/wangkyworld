@@ -59,7 +59,9 @@ void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int 
     POINT position;
     int n_map;
     Command C;
-    while (s_aksi > 0) {
+    printf("Executing...\n");
+    while (*s_aksi > 0) {
+        printf("0\n");
         PopCommand(S, &C);
         idx = Idx(C);
         amount = Jml(C);
@@ -86,7 +88,7 @@ void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int 
                 }
             }
         }
-        s_aksi--;
+        (*s_aksi)--;
     }
 
     *uang = *uang-*s_uang;
@@ -94,6 +96,7 @@ void ExecuteCommand (CmdStack *S, ListLin *WahanaP, int *uang, int *s_aksi, int 
     *time_curr = MakeJAM(9,0,0);
     *time_goal = MakeJAM(21,0,0);
     *s_uang = 0;
+    *s_waktu = 0;
 }
 
 void Buy(List L, List LC, char *Nama, int Quantity, int Uang, int *s_uang, JAM time_remain, int *s_waktu, int *s_aksi, CmdStack *S)

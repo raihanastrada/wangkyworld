@@ -6,7 +6,7 @@
 #ifndef antrian_H
 #define antrian_H
 
-#include "boolean.h"
+#include "../Array/boolean.h"
 #include "listlinier.h"
 
 #define NilN NULL

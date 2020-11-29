@@ -5,8 +5,7 @@
 #ifndef cmdstack_H
 #define cmdstack_H
 
-#include "boolean.h"
-#include "../Jam/jam.h"
+#include "../Array/boolean.h"
 #include "../Wahana/point.h"
 
 #define NilS -1
@@ -47,7 +46,7 @@ typedef struct {
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
-void CreateCEmpty (Command *C, int idx, int amount, int wahana, char detail[20], int posX, int posY, int nmap);
+void AssignC (Command *C, int idx, int amount, int wahana, char *detail, int posX, int posY, int nmap);
 /* I.S. sembarang */
 /* F.S. Membuat Command C dengan index command idx, jumlah (jika tidak 0) amount */
 /* index wahana (jika tidak 0) wahana, dan keterangan (jika tidak kosong) detail */
@@ -65,19 +64,19 @@ boolean IsSFull (CmdStack S);
 /* Mengirim true jika tabel penampung nilai elemen CmdStack penuh */
 
 /* ************ Menambahkan sebuah elemen ke CmdStack ************ */
-void PushCommand (CmdStack * S, infotype X);
+void PushCommand (CmdStack *S, Command C);
 /* Menambahkan X sebagai elemen CmdStack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen CmdStack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen CmdStack ************ */
-void PopCommand (CmdStack * S, infotype* X);
+void PopCommand (CmdStack *S, Command *C);
 /* Menghapus X dari CmdStack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
 /* ************ Menjalankan Command pada CmdStack ************ */
-void ExecuteCommand (CmdStack *S, int *uang, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, JAM *time_goal, JAM *time_remain, Map *M, List *ListMat);
+/*void ExecuteCommand (CmdStack *S, int *uang, int *s_aksi, int *s_waktu, int *s_uang, JAM *time_curr, JAM *time_goal, JAM *time_remain, ListMap *ListM, List *ListMat);*/
 /* menjalankan command-command yang ada di CmdStack S */
 /* I.S. S mungkin kosong */
 /* F.S. melakukan build/upgrade/buy sesuai command yang ada di CmdStack, lalu mulai main phase */

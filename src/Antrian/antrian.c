@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "boolean.h"
+#include "../Array/boolean.h"
 #include "antrian.h"
 #include "listlinier.h"
 
@@ -33,7 +33,7 @@ void CreateAEmpty (Antrian *A)
 }
 
 /****************** Manajemen Memori ******************/
-addrA AlokasiA (int X, ListLin W)
+addrA AlokasiA (int X, ListLin W, int K)
 /* Mengirimkan address hasil alokasi sebuah elemen */
 /* Jika alokasi berhasil, maka address tidak NilN, dan misalnya */
 /* menghasilkan P, maka Info(P)=X, NextA(P)=NilN */
@@ -43,6 +43,7 @@ addrA AlokasiA (int X, ListLin W)
     if (E != NULL) {
         Prio(E) = X;
         Wahana(E) = W;
+        Patience(E) = K;
         NextA(E) = NilN;
     } else {
         E = NilN;
@@ -78,7 +79,7 @@ addrA SearchA (Antrian A, int X)
     }
 }
 
-addrA SearchA (Antrian A, int K)
+addrA SearchK (Antrian A, int K)
 /* Mencari apakah ada elemen Antrian dengan Patience(P) = K */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan NilN */
@@ -93,7 +94,7 @@ addrA SearchA (Antrian A, int K)
         if (Patience(P1) == K) {
             return P1;
         } else {
-            return NilN(A);
+            return NilN;
         }
     }
 }
@@ -166,10 +167,10 @@ void HilangSabar (Antrian *A)
 /* F.S. Elemen dengan kesabaran 0 dihapus */
 {
     addrA E = FirstA(*A);
-    while (E != Nil) {
+    while (E != NilN) {
         if (Patience(E) == 0) {
             E = NextA(E);
-            if (E == Nil) {
+            if (E == NilN) {
                 FirstA(*A) = NilN;
                 LastA(*A) = NilN;
             }
@@ -230,6 +231,6 @@ void GeneratePengunjung(Antrian *Antrian, ListLin Wahana, int N, int seed) {
             InsVFirstL(&Wishlist, InfoL(W));
         }
 
-        Antri(Antrian, 1, Wishlist);
+        Antri(Antrian, 1, Wishlist, 5);
     }
 }
