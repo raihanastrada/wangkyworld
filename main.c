@@ -24,7 +24,7 @@ void info(char *nama, int uang, JAM time_curr, JAM time_goal, int time_remain, i
     printf("Current Time: ");
     TulisJAM(time_curr);
     printf("\n");
-    if (!main) {
+    if (main) {
         printf("Closing Time: ");
     } else {
         printf("Opening Time: ");
@@ -154,6 +154,7 @@ int main()
         // Queue Antrian Pengunjung
         Antrian AntrianP;
         CreateAEmpty(&AntrianP);
+        int jmlPengunjung = 5;
 
         int day = 1;
         int P_NMap = 1; // Pemain berada di peta keberapa
@@ -176,6 +177,12 @@ int main()
             
             PrintPreviewMap(MapN(M, P_NMap), LWMap, WBuild, P_NMap);
             info(nama, uang, time_curr, time_goal, time_remain, s_aksi, s_waktu, s_uang, main);
+            
+            if (main) {
+                printf("Antrian [%d/%d]", PanjangA(AntrianP), jmlPengunjung);
+                PrintAntrian(AntrianP, LW);
+            }
+            
             printf("\n");
             printf("Masukkan Perintah:\n");
             SCANKATA();
@@ -308,7 +315,6 @@ int main()
                     if (!main) {
                         ExecuteCommand(&s_commands, &WahanaP, &uang, &s_aksi, &s_waktu, &s_uang, &time_curr, &LWMap, &WBuild, &M, &MatPemain);
                         if (JEQ(time_curr, time_open)) {
-                            int jmlPengunjung = 5;
                             main = true;
                             time_curr = time_open;
                             GeneratePengunjung(&AntrianP, WahanaP, jmlPengunjung, 7);
