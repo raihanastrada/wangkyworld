@@ -6,7 +6,6 @@
 
 #include "../Array/boolean.h"
 #include "../Array/array.h"
-#include "stackWMap.h"
 #include "point.h"
 
 #define IdxMaxW 99 /* Indeks maksimum array */
@@ -21,9 +20,9 @@ typedef struct {
 } WMapItemCopy;
 
 typedef struct { 
-  WMapItemCopy T[IdxMax+1]; /* Array of WahanaItem */
+  WMapItemCopy T[IdxMaxW+1]; /* Array of WahanaItem */
   int length;
-} ListWMap ;
+} ListWMap;
 
 /********** SELEKTOR **********/
 #define IDW(WM) (WM).id
@@ -42,6 +41,8 @@ boolean IsLWMFull(ListWMap WMap);
 /* Mengembalikan true jika WMap penuh */
 boolean SearchLWM(ListWMap WMap, int ID, POINT Pos, int NMap);
 /* Mengembalikan true jika ada WMapItem dalam WMap dengan IDW, Pos, NMap */
+boolean SearchWMap(ListWMap WMap, int posx, int posy, int NMap);
+/* Mengembalikan true jika ada WMapItem dalam WMap di lokasi (posx, posy) */
 
 void PushLWM(ListWMap *WMap, int ID, POINT Pos, int NMap);
 /* Menyimpan wahana item baru */

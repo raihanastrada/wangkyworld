@@ -7,7 +7,6 @@
 #include "../Array/boolean.h"
 #include "point.h"
 #include "../map.h"
-#include "stackWMap.h"
 #include "arrayWahana.h"
 #include "arrayWMap.h"
 
@@ -46,6 +45,8 @@ boolean IsWMFull (StackWMap WMap);
 /* Mengirim true jika tabel penampung nilai elemen StackWMap penuh */
 boolean IsPosTaken (StackWMap WBuild, ListWMap WMap, int IDWahana, POINT Pos, int NMap, ListW L);
 /* Mengirim true jika terdapat building lain pada lokasi Pos pada peta ke-NMap */
+boolean SearchSWMap(StackWMap WMap, int posy, int posx, int NMap);
+/* Mengembalikan true jika ada WMapItem dalam WMap di lokasi (posx, posy) */
 
 /* ************ Menambahkan sebuah elemen ke StackWMap ************ */
 void PushWahana (StackWMap *WMap, int idw, POINT pos, int nmap);

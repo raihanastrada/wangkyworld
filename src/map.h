@@ -2,15 +2,17 @@
 #define MAP_H
 
 #include "../adt/boolean.h"
+#include "./Wahana/arrayWMap.h"
+#include "./Wahana/stackWMap.h"
 // #include "adt/graph.h"
 
 #define BrsMin 0
-#define BrsMax 10
+#define BrsMax 12
 #define KolMin 0
-#define KolMax 10
+#define KolMax 12
 #define Nil -1
 #define Field '-'
-#define Player 'p'
+#define Player 'P'
 #define Border '*'
 
 typedef struct
@@ -37,8 +39,8 @@ typedef struct
 #define PlayerX(M) (M).PlayerX
 #define PlayerY(M) (M).PlayerY
 #define IDM(M) (M).IDM
-#define MapN(ListM, N) (ListM).LM[N]
-#define MapNElmt(ListM, N, i, j) (ListM).LM[N].Mem[i][j]
+#define MapN(ListM, N) (ListM).LM[N-1]
+#define MapNElmt(ListM, N, i, j) (ListM).LM[N-1].Mem[i][j]
 //#define Left(M) (M).Left
 //#define Right(M) (M).Right
 

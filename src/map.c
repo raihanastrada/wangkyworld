@@ -2,7 +2,9 @@
 /* Realisasi map.h */
 
 #include "map.h"
-#include "mesinkata.h"
+#include "./MesinKata/mesinkata.h"
+#include "./Wahana/arrayWMap.h"
+#include "./Wahana/stackWMap.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -63,13 +65,13 @@ void InitMap(Map *M, char *filename)
 	}
 	STARTKATA2(filename);
 	int i = 0;
+    PlayerX(*M) = toInt(CKata.TabKata)+1;
+    ADVKATA();
+    PlayerY(*M) = toInt(CKata.TabKata)+1;
+    ADVKATA();
 	while(!EndKata) {
 		int j;
 		for (j=0;j<CKata.Length;j++) {
-			if (CKata.TabKata[j]=='P') {
-				PlayerX(*M) = i;
-				PlayerY(*M) = j;
-			}
 			Info(*M,i,j) = CKata.TabKata[j];
 		}
 		ADVKATA();
@@ -93,8 +95,7 @@ void InitMap(Map *M, char *filename)
                 }    
             }
         }
-    }
-	*/
+    }*/
 }
 
 /********** OPERASI **********/
@@ -106,30 +107,9 @@ void PrintMap(Map M)
     {
         for (int j = KolMin; j < KolMax; j++)
         {
-            printf("%c", Info(M, i, j));
-            if (j == KolMax-1)
-            {
-                printf("\n");
-            }
-        }
-    }
-    PrintLegend();
-}
-
-void PrintPreviewMap(Map M, ListWMap WMap)
-/* Menampilkan peta pada kondisi preparation phase */
-{
-    Building B;
-    for (int i = BrsMin; i < BrsMax; i++)
-    {
-        for (int j = KolMin; j < KolMax; j++)
-        {
-            B = SearchWMap(WMap, i, j)
-            if (B != NilB && Info(M, i, j) != 'P')
-            {
-                printf("%c", BType(B));
-            } else
-            {
+            if (i == PlayerY(M) && j == PlayerX(M)) {
+                printf("P");
+            } else {
                 printf("%c", Info(M, i, j));
             }
             if (j == KolMax-1)
@@ -194,18 +174,18 @@ void Move(Map *M, char move)
 jika menabrak pagar Player tetap pada posisi awal, 
 jika berada di atas office maka dapat berinteraksi dengan office */
 {
-    int i = PlayerX(*M);
-    int j = PlayerY(*M);
+    int i = PlayerY(*M);
+    int j = PlayerX(*M);
 	RetractPlayer(M);
     switch (move)
     {
     case 'w':
-		if (IsBorder(*M,i-1,j)) InitPlayer(M, PlayerX(*M), PlayerY(*M));
+		if (IsBorder(*M,i-1,j)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
         else if (!IsBorder(*M,i-1,j))
         {
             PlayerX(*M) = i-1;
 	        PlayerY(*M) = j;
-			InitPlayer(M, PlayerX(*M), PlayerY(*M));
+			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
         }
         else if (IsGerbang(*M,i-1,j))
         {
@@ -214,12 +194,12 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         
         break;
     case 'a':
-		if (IsBorder(*M,i,j-1)) InitPlayer(M, PlayerX(*M), PlayerY(*M));
+		if (IsBorder(*M,i,j-1)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
         else if (!IsBorder(*M,i,j-1))
         {
             PlayerX(*M) = i;
 	        PlayerY(*M) = j-1;
-			InitPlayer(M, PlayerX(*M), PlayerY(*M));
+			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
         }
         else if (IsGerbang(*M,i,j-1))
         {
@@ -228,12 +208,12 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         
         break;
     case 's':
-		if (IsBorder(*M,i+1,j)) InitPlayer(M, PlayerX(*M), PlayerY(*M));
+		if (IsBorder(*M,i+1,j)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
         else if (!IsBorder(*M,i+1,j))
         {
             PlayerX(*M) = i+1;
 	        PlayerY(*M) = j;
-			InitPlayer(M, PlayerX(*M), PlayerY(*M));
+			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
         }
         else if (IsGerbang(*M,i+1,j))
         {
@@ -242,12 +222,12 @@ jika berada di atas office maka dapat berinteraksi dengan office */
         
         break;
     case 'd':
-		if (IsBorder(*M,i,j+1)) InitPlayer(M, PlayerX(*M), PlayerY(*M));
+		if (IsBorder(*M,i,j+1)) /*InitPlayer(M, PlayerX(*M), PlayerY(*M))*/;
         else if (!IsBorder(*M,i,j+1))
         {
             PlayerX(*M) = i;
 	        PlayerY(*M) = j+1;
-			InitPlayer(M, PlayerX(*M), PlayerY(*M));
+			//InitPlayer(M, PlayerX(*M), PlayerY(*M));
         }
         else if (IsGerbang(*M,i,j+1))
         {
@@ -264,10 +244,10 @@ void MakeListMap(ListMap *ListM, Map M1, Map M2, Map M3, Map M4)
 /* I.S. ListMap sembarang */
 /* F.S. ListMap[0] berisi M1 ... hingga ListMap[3] berisi M4 */
 {
-    MapN(*ListM, 0) = M1;
-    MapN(*ListM, 1) = M2;
-    MapN(*ListM, 2) = M3;
-    MapN(*ListM, 3) = M4;
+    MapN(*ListM, 1) = M1;
+    MapN(*ListM, 2) = M2;
+    MapN(*ListM, 3) = M3;
+    MapN(*ListM, 4) = M4;
 }
 
 /*

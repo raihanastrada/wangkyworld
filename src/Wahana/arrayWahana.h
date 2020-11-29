@@ -39,6 +39,7 @@ typedef struct {
 #define Level(L, i) (L).T[(i)].level
 #define Biaya(L,i) (L).T[(i)].biaya
 #define Bahan(L, i, j) (L).T[(i)].bahan[(j)]
+#define WItem(L, i) (L).T[(i)]
 
 void CreateListW(ListW *L);
 /* I.S. L sembarang */
@@ -64,9 +65,12 @@ int SearchListWLvl(ListW L, int idx);
 /* I.S. ListW L dan Nama terdefinisi */
 /* F.S. Mengembalikan indeks Level pada ListW L, jika tidak ada mengembalika IdxUndef */
 
-void Build(ListW W, ListLin WahanaP, int idx, List *LM);
-/* I.S. Parameter Fungsi Terdefinisi */
-/* F.S. Uang berkurang sebanyak (harga barang)*(quantity), jika uang tidak cukup maka akan ditampilkan pesan error
-        & proses tidak dijalankan */
+WahanaItem WahanaFromID(ListW L, int idx);
+/* I.S. ListW L dan idx terdefinisi, terdapat wahana dengan ID idx di L */
+/* F.S. Mengembalikan WahanaItem pada ListW L dengan ID idx */
+
+int IDFromWahana(ListW L, char *wname);
+/* I.S. ListW L dan wname terdefinisi, terdapat wahana dengan nama wname di L */
+/* F.S. Mengembalikan ID wahana pada ListW L dengan WName wname */
 
 #endif

@@ -39,6 +39,10 @@ void InitListW(ListW *L, char *filename)
 /* I.S. ListW L kosong */
 /* F.S. ListW L diisi data dari file eksternal (.txt) */
 {
+    if (EndKata) {
+        EndKata = false;
+    }
+    
     STARTKATA2(filename);
     int i = 0;
     int j;
@@ -128,7 +132,7 @@ int SearchListWName(ListW L, int idx)
 {
     boolean found = false;
     int i = IdxMin;
-	while(ID(L,i) == idx && !found) // Looping selama ID bukan idx
+	while(ID(L,i) != idx && !found) // Looping selama ID bukan idx
 	{
 		if (ID(L,i) == idx) // Jika ditemukan ID pada ListW
         {
@@ -155,7 +159,7 @@ int SearchListWLvl(ListW L, int idx)
 {
     boolean found = false;
     int i = IdxMin;
-	while(ID(L,i) == idx && !found) // Looping selama ID bukan idx
+	while(ID(L,i) != idx && !found) // Looping selama ID bukan idx
 	{
 		if (ID(L,i) == idx) // Jika ditemukan ID pada ListW
         {
@@ -176,10 +180,15 @@ int SearchListWLvl(ListW L, int idx)
     }
 }
 
-void Build(ListW W, ListLin WahanaP, int idx, List *LM)
-/* I.S. Parameter Fungsi Terdefinisi */
-/* F.S. Uang berkurang sebanyak (harga barang)*(quantity), jika uang tidak cukup maka akan ditampilkan pesan error
-        & proses tidak dijalankan */
+int IDFromWahana(ListW L, char *wname)
+/* I.S. ListW L dan wname terdefinisi, terdapat wahana dengan nama wname di L */
+/* F.S. Mengembalikan ID wahana pada ListW L dengan WName wname */
 {
-    int i = 0;
+    int i = IdxMin;
+    printf("YOU TYPED: %s\n", wname);
+	while(strcmp(WName(L,i), wname) != 0) // Looping selama ID bukan idx
+	{
+        i++;
+	}
+    return ID(L, i);
 }

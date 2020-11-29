@@ -40,7 +40,6 @@ boolean IsPosTaken (StackWMap WBuild, ListWMap WMap, int IDWahana, POINT Pos, in
     POINT Pos1;
     int N1;
     WMapItem WBuildItem;
-    WMapItemCopy WBuildItemCopy;
     for (i = TopWMap(WBuild); i >= 0; i--) {
         WBuildItem = WBuild.T[i];
         Pos1 = Loc(WBuildItem);
@@ -53,19 +52,20 @@ boolean IsPosTaken (StackWMap WBuild, ListWMap WMap, int IDWahana, POINT Pos, in
             }
         }
     }
-    for (i = 0; i < LenWM(WMap); i++) {
-        WBuildItemCopy = WMItem(WMap, i);
-        Pos1 = Loc(WBuildItemCopy);
-        N1 = Quadrant(WBuildItemCopy);
-        if (EQ(Pos1, Pos) && N1 == NMap) {
-            lvlA = SearchListWLvl(L, IDWahana);
-            lvlB = SearchListWLvl(L, IDW(WBuildItemCopy));
-            if (lvlA <= lvlB) {
-                return false;
-            }
+    return true;
+}
+
+boolean SearchSWMap(StackWMap WMap, int posy, int posx, int NMap)
+{
+    int i;
+    WMapItem WMI;
+    for (i = 0; i < TopWMap(WMap)+1; i++) {
+        WMI = WMap.T[i];
+        if (Absis(Loc(WMI)) == posx && Ordinat(Loc(WMI)) == posy && Quadrant(WMI) == NMap) {
+            return true;
         }
     }
-    return true;
+    return false;
 }
 
 /* ************ Menambahkan sebuah elemen ke StackWMap ************ */

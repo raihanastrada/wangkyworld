@@ -3,7 +3,7 @@
 #include "../Array/boolean.h"
 
 /* *** Konstruktor membentuk POINT *** */
-POINT MakePOINT (float X, float Y)
+POINT MakePOINT (int X, int Y)
 /* Membentuk sebuah POINT dari komponen-komponennya */
 {
 	POINT P;
@@ -19,7 +19,7 @@ void TulisPOINT (POINT P)
    Output X dan Y harus dituliskan dalam bilangan riil dengan 2 angka di belakang koma.
 */
 {
-	printf("(%.2f,%.2f)", Absis(P), Ordinat(P));
+	printf("(%d, %d)", Absis(P), Ordinat(P));
 }
 
 /* *** Kelompok operasi relasional terhadap POINT *** */

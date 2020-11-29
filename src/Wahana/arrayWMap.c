@@ -47,6 +47,17 @@ boolean SearchLWM(ListWMap WMap, int ID, POINT Pos, int NMap)
     return false;
 }
 
+boolean SearchWMap(ListWMap WMap, int posy, int posx, int NMap)
+{
+    int i;
+    for (i = 0; i < LenWM(WMap); i++) {
+        if (Absis(Loc(WMItem(WMap, i))) == posx && Ordinat(Loc(WMItem(WMap, i))) == posy && Quadrant(WMItem(WMap, i)) == NMap) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void PushLWM(ListWMap *WMap, int ID, POINT Pos, int NMap)
 /* Menyimpan wahana item baru */
 /* prekondisi: IsPosTaken() false */
