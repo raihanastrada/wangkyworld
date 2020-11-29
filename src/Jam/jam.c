@@ -99,11 +99,11 @@ void TulisDurasi (JAM J)
 	{
         if (Minute(J) == 1)
         {
-            printf("%d minute ", Hour(J));
+            printf("%d minute ", Minute(J));
         }
         else
         {
-            printf("%d minute(s) ", Hour(J));
+            printf("%d minute(s) ", Minute(J));
         }
     }
 }
